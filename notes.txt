@@ -1,0 +1,17 @@
+Joukowski transform
+x = cos(z)	complex unit circle
+x = exp(iθ)	interval [-π,π]
+
+
+
+
+
+
+Books
+https://www.pdfdrive.com/approximation-theory-and-approximation-practice-d19062270.html
+
+https://www.pdfdrive.com/approximation-theory-books.html
+
+
+Orthogonal Polynomials: Theory and Practice
+

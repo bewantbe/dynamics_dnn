@@ -1,0 +1,1682 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-std
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "cmr" "FreeSerif"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type numerical
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+One-Layer ANN in Generalized Fourier Series Expansion
+\end_layout
+
+\begin_layout Section
+Data Fitting Problem
+\end_layout
+
+\begin_layout Standard
+The problem setup is to fit 
+\begin_inset Formula $J$
+\end_inset
+
+ given pairs of feature and label (inputs and outputs) 
+\begin_inset Formula $\left\{ \left(x_{j},y_{j}\right)\right\} $
+\end_inset
+
+ by a function 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+ with parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ (usually a vector).
+ The parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is found by gradient descent.
+ The aim is to study how the parameter changes in the gradient descent algorithm
+ by utilizing generalized Fourier series (GFS) expansion.
+\end_layout
+
+\begin_layout Standard
+The fitting quality is measured by 2-norm loss 
+\begin_inset Formula $\tilde{L}(\theta)$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\tilde{L}_{J}(\theta)=\frac{1}{2J}\sum_{j=1}^{J}\left(f_{\theta}(x_{j})-y_{j}\right)^{2}.\label{eq:Loss-sample}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assume the samples 
+\begin_inset Formula $\left\{ x_{j}\right\} $
+\end_inset
+
+ are draw from a distribution 
+\begin_inset Formula $\rho(x)$
+\end_inset
+
+ (either bounded or unbounded support), and the labels come from an underlying
+ function 
+\begin_inset Formula $y(x)$
+\end_inset
+
+: 
+\begin_inset Formula $y_{j}=y(x_{j})$
+\end_inset
+
+.
+ Now let 
+\begin_inset Formula $J\rightarrow\infty$
+\end_inset
+
+, we should have a theoretical loss 
+\begin_inset Formula $L(\theta)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\tilde{L}_{J}(\theta)\rightarrow L(\theta)\quad\mathrm{as}\ J\rightarrow\infty,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+L(\theta)=\frac{1}{2}\int_{\Omega}\left(f_{\theta}(x)-y(x)\right)^{2}\rho(x)\,\mathrm{d}x.\label{eq:Loss}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Loss"
+
+\end_inset
+
+ naturally induce a norm and an inner product (assume all real functions)
+\begin_inset Formula 
+\begin{equation}
+\left\Vert f\right\Vert _{\rho}=\int_{\Omega}f^{2}(x)\rho(x)\,\mathrm{d}x,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\langle f,g\right\rangle _{\rho}=\int_{\Omega}f(x)g(x)\rho(x)\,\mathrm{d}x.\label{eq:inner-product}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Under the inner product in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:inner-product"
+
+\end_inset
+
+, with possibly a boundary condition, there exist a set of orthogonal basis
+ 
+\begin_inset Formula $\left\{ p_{k}(x)\right\} _{k=0}^{\infty}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\left\langle p_{k},p_{j}\right\rangle _{\rho}=\delta_{kj}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notably, 
+\begin_inset Formula $p_{k}(x)$
+\end_inset
+
+ can be orthogonal (orthonormal) polynomials generated from 
+\begin_inset Formula $\left\{ x^{k}\right\} _{k=0}^{\infty}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Remarks:
+\end_layout
+
+\begin_layout Itemize
+Basis other than polynomials can be obtained from Sturm–Liouville problem,
+ such as Bessel function or spherical harmonics (See wikipedia 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "noauthor_sturmliouville_2018"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+These orthonormal basis 
+\begin_inset Formula $\left\{ p_{k}\right\} $
+\end_inset
+
+ form a Hilbert space.
+\end_layout
+
+\begin_layout Itemize
+Each 
+\begin_inset Formula $p_{k}(x)$
+\end_inset
+
+ has exactly 
+\begin_inset Formula $k$
+\end_inset
+
+ zeros.
+ Therefore the subscript 
+\begin_inset Formula $k$
+\end_inset
+
+ has similar meaning as the 
+\begin_inset Formula $k$
+\end_inset
+
+ in Fourier mode 
+\begin_inset Formula $e^{\mathrm{i}kx}$
+\end_inset
+
+, i.e.
+ the frequency.
+\end_layout
+
+\begin_layout Standard
+The fitting function 
+\begin_inset Formula $f_{\theta}$
+\end_inset
+
+ can then be expand as Generalized Fourier series:
+\begin_inset Formula 
+\begin{equation}
+\sum_{k=0}^{K}c_{k}(\theta)p_{k}(x)\rightarrow f_{\theta}(x)\quad\mathrm{as}\ K\rightarrow\infty\label{eq:orth-expand}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{k}(\theta)=\left\langle f_{\theta},p_{k}\right\rangle _{\rho}\label{eq:expand-coef}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ means convergence in a suitable sense, which depends on the regularity
+ of 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+.
+ e.g.
+ uniformly convergent for Lipschitz continuous 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+, point-wise convergent (almost everywhere) for piecewise continuous and
+ bounded variation 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+, weak convergence for worse cases.
+\end_layout
+
+\begin_layout Standard
+In the Hilbert space here, the completeness of basis is measured by convergence
+ of norm (
+\begin_inset Formula $\left\Vert \cdot\right\Vert _{\rho}$
+\end_inset
+
+).
+ See also mathworld.wolfram.com 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "weisstein_complete_nodate"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the following analysis, we assume 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ is actually 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $=$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Note: using orthonormal basis other than the one derived above (with the
+ 
+\begin_inset Formula $\rho(x)$
+\end_inset
+
+) is possible, in the sense that only use the GFS to look at its frequency
+ components.
+ For further discussion, see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Advantages"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Gradient of Loss in View of Generalized Fourier Series
+\end_layout
+
+\begin_layout Standard
+The expansion of gradient of loss function provides insight for gradient
+ descent algorithm:
+\begin_inset Formula 
+\begin{align}
+\frac{\partial L(\theta)}{\partial\theta} & =\frac{1}{2}\frac{\partial}{\partial\theta}\left\langle f_{\theta}-y,f_{\theta}-y\right\rangle _{\rho}=\frac{1}{2}\frac{\partial}{\partial\theta}\sum_{k=0}^{\infty}\left\langle f_{\theta}-y,p_{k}\right\rangle _{\rho}^{2}=\sum_{k=0}^{\infty}\left\langle f_{\theta}-y,p_{k}\right\rangle _{\rho}\frac{\partial}{\partial\theta}\left\langle f_{\theta},p_{k}\right\rangle _{\rho}\nonumber \\
+ & =\sum_{k=0}^{\infty}\left(c_{k}(\theta)-\left\langle y,p_{k}\right\rangle _{\rho}\right)\frac{\partial c_{k}(\theta)}{\partial\theta}.\label{eq:Loss-d}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now assume that 
+\begin_inset Formula $f_{\theta}$
+\end_inset
+
+ is 1-layer ANN (
+\begin_inset Formula $\theta=\{w_{l},r_{l},b_{l}\}$
+\end_inset
+
+
+\begin_inset Formula $_{l=1}^{L}$
+\end_inset
+
+), with 
+\begin_inset Formula $x\in[-1,1]$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+f_{\theta}=\sum_{l=1}^{L}w_{l}\sigma(r_{l}x+b_{l}).\label{eq:1-layer-ann}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So 
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial f_{\theta}}{\partial\theta}=\begin{cases}
+{\displaystyle \sigma(r_{l}x+b_{l})} & \theta=w_{l}\\
+w_{l}\sigma'(r_{l}x+b_{l}) & \theta=b_{l}\\
+w_{l}\sigma'(r_{l}x+b_{l})x & \theta=r_{l}
+\end{cases}\quad l=1,\ldots,L.\label{eq:f-d}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The last term in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Loss-d"
+
+\end_inset
+
+ is
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial c_{k}(\theta)}{\partial\theta}=\left\langle \frac{\mathrm{\partial f_{\theta}}}{\partial\theta},p_{k}\right\rangle _{\rho}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we further assume that 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ is smooth in the sense of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+ or Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+, then 
+\begin_inset Formula $\frac{\partial f_{\theta}}{\partial\theta}$
+\end_inset
+
+ will have similar but possibly slightly degraded smoothness.
+ The theorem for general 
+\begin_inset Formula $\rho(x)$
+\end_inset
+
+ is not yet found, so the following analysis are based on the Chebyshev
+ expansion (
+\begin_inset Formula $\rho(x)=\left(1-x^{2}\right)^{-1/2}$
+\end_inset
+
+).
+ For 
+\begin_inset Formula $\rho(x)=1$
+\end_inset
+
+, it is the Legendre polynomials expansion, it has the same asymptotics
+ as Chebyshev expansion (Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "wang_convergence_2012"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Case 1, 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+ is analytical (in the sense of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+), so 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{\partial f_{\theta}(x)}{\partial\theta}$
+\end_inset
+
+ are also analytical.
+\end_layout
+
+\begin_layout Standard
+Let's assume that there is no singularity in a neighborhood of real axis
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+If there is singularity on the real axis, then it will be non-smooth with
+ certain translation parameter 
+\begin_inset Formula $b_{l}$
+\end_inset
+
+, i.e.
+ probably not a very interesting activation function.
+\end_layout
+
+\end_inset
+
+ in the domain of 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+, the nearest singularity is 
+\begin_inset Formula $\pm\mathrm{i}B$
+\end_inset
+
+ away from the real axis.
+ In this setup, the Bernstein ellipse parameter 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ (the 
+\begin_inset Formula $\rho$
+\end_inset
+
+ in Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+, not to be confused with the weighting 
+\begin_inset Formula $\rho(x)$
+\end_inset
+
+) is 
+\begin_inset Formula $\Theta_{\sigma}=B+\sqrt{1+B^{2}}$
+\end_inset
+
+ at least.
+\end_layout
+
+\begin_layout Standard
+So the Bernstein ellipse parameter for 
+\begin_inset Formula $\frac{\partial f_{\theta}}{\partial\theta}$
+\end_inset
+
+ is 
+\begin_inset Formula $\Theta_{\theta}=B/r_{l}+\sqrt{1+\left(B/r_{l}\right)^{2}}\approx\Theta_{\sigma}/r_{l}$
+\end_inset
+
+ (
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $\approx$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ when 
+\begin_inset Formula $r_{l}\ll B$
+\end_inset
+
+), we get
+\begin_inset Formula 
+\[
+\left|\frac{\partial c_{k}(\theta)}{\partial\theta}\right|<2M\Theta_{\theta}^{-k}\sim2M\left(\frac{r_{l}}{\Theta_{\sigma}}\right)^{k},\quad k\geq1.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Case 2, 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+ is continuous up to 
+\begin_inset Formula $(\nu-1)$
+\end_inset
+
+-th derivative (in the sense of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+), so 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{\partial f_{\theta}(x)}{\partial\theta}$
+\end_inset
+
+ are also smooth in the same sense, with 
+\begin_inset Formula $\tilde{\nu}=\nu-1$
+\end_inset
+
+ for 
+\begin_inset Formula $\theta=b_{l},r_{l}$
+\end_inset
+
+, 
+\begin_inset Formula $\tilde{\nu}=\nu$
+\end_inset
+
+ for 
+\begin_inset Formula $\theta=w_{l}$
+\end_inset
+
+.
+ Due to Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+, we have
+\begin_inset Formula 
+\[
+\left|\frac{\partial c_{k}(\theta)}{\partial\theta}\right|\leq\frac{2V}{\pi(k-\nu)^{\tilde{\nu}+1}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Depending on the curve 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+, the total variation 
+\begin_inset Formula $V$
+\end_inset
+
+ of 
+\begin_inset Formula $\frac{\mathrm{d}^{\tilde{\nu}}}{\mathrm{d}x^{\tilde{\nu}}}\frac{\partial f_{\theta}}{\partial\theta}$
+\end_inset
+
+ in 
+\begin_inset Formula $[-1,1]$
+\end_inset
+
+ can have different asymptotic behavior with respect to parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+.
+ For Relu 
+\begin_inset Formula $\sigma(x)=\max(0,x)$
+\end_inset
+
+, 
+\begin_inset Formula $\nu=1$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{TV}\left(\sigma^{(\nu)}(r_{l}x)\right)=r_{l}$
+\end_inset
+
+, assume the turning point 
+\begin_inset Formula $-b_{l}/r_{l}\in[-1,1]$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+V=\begin{cases}
+r_{l} & \theta=w_{l}\\
+w_{l}r_{l} & \theta=b_{l}\\
+w_{l}(r_{l}+\max(0,2b_{l})) & \theta=r_{l}
+\end{cases}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The rest of the analysis is the same as plain Fourier Series based method.
+ i.e.
+ 
+\begin_inset Formula $\frac{\partial c_{k}(\theta)}{\partial\theta}$
+\end_inset
+
+ act as the weighting to the frequency-wise residuals 
+\begin_inset Formula $c_{k}(\theta)-\left\langle y,p_{k}\right\rangle _{\rho}$
+\end_inset
+
+ in the gradient descent algorithm.
+\end_layout
+
+\begin_layout Section
+Advantages of Using Data Oriented Generalized Fourier Series
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Advantages"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Summary of advantages (Data Oriented Generalized Fourier Series, DOGFS):
+\end_layout
+
+\begin_layout Enumerate
+The loss function in ANN is exactly one side of the Parseval's equality
+ of DOGFS.
+ Thus optimizing loss is equivalent to optimize the 
+\begin_inset Quotes eld
+\end_inset
+
+Energy
+\begin_inset Quotes erd
+\end_inset
+
+ (Parseval's).
+\end_layout
+
+\begin_layout Enumerate
+DOGFS reveals the intrinsic smoothness of (target and fitting) function,
+ in contrast of Fourier series that are contaminated by boundary.
+\end_layout
+
+\begin_layout Enumerate
+Clear separation of frequency terms in expansion of gradient.
+\end_layout
+
+\begin_layout Standard
+Explanation:
+\end_layout
+
+\begin_layout Standard
+Suppose we expand 
+\begin_inset Formula $f_{\theta}$
+\end_inset
+
+ by a set of complete orthonormal basis 
+\begin_inset Formula $\left\{ q_{k}\right\} $
+\end_inset
+
+ other than 
+\begin_inset Formula $\left\{ p_{k}\right\} $
+\end_inset
+
+ mentioned in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:orth-expand"
+
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+f_{\theta}(x)=\sum_{k=0}^{\infty}d_{k}(\theta)q_{k}(x),
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+\left\langle q_{j},q_{k}\right\rangle _{\rho_{q}}=\int_{\Omega}q_{j}(x)q_{k}(x)\rho_{q}(x)=\delta_{jk}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The corresponding 
+\begin_inset Quotes eld
+\end_inset
+
+Plancherel theorem
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+Parseval's
+\begin_inset Quotes erd
+\end_inset
+
+ Formula is:
+\begin_inset Formula 
+\[
+E_{q}(f)=\int_{\Omega}f^{2}(x)\rho_{q}(x)\,\mathrm{d}x=\sum_{k=0}^{\infty}d_{k}^{2},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\rho_{q}\neq\rho$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For example, using basis of the Fourier series, 
+\begin_inset Formula $\rho_{q}\equiv1$
+\end_inset
+
+, 
+\begin_inset Formula $q_{k}(x)=\cos\left(\pi\left\lceil \frac{k}{2}\right\rceil x+\frac{\pi}{2}k\right)$
+\end_inset
+
+, assuming the domain 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ is 
+\begin_inset Formula $\left[-1,1\right]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Clearly, 
+\begin_inset Formula $\frac{1}{2}E_{q}(f_{\theta}-y)$
+\end_inset
+
+ is different from 
+\begin_inset Formula $L(\theta)$
+\end_inset
+
+ derived in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Loss"
+
+\end_inset
+
+ in general.
+ This is an essential requirement that doing gradient descent in frequency
+ domain is the same in physical domain.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Fourier series implicitly imposed a periodic boundary condition: 
+\begin_inset Formula $f(-1+0)=f(1-0)$
+\end_inset
+
+, 
+\begin_inset Formula $\forall k\in\mathbb{N},\ f^{(k)}(-1+0)=f^{(k)}(1-0)$
+\end_inset
+
+, which the original function 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+ or 
+\begin_inset Formula $y(x)$
+\end_inset
+
+ do not usually have.
+ Therefore, the high frequency components are trying hard to fit the non-exist
+ periodic boundary.
+ And that can easily shadows the true smoothness of 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+ or 
+\begin_inset Formula $y(x)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In contrast, in DOGFS, from Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+ or Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+, we see no suspicious boundary condition is assumed, only the smoothness
+ inside the domain (with possibly analytical continuation) is considered.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now let's see how the gradient goes for 
+\begin_inset Formula $\left\{ q_{k}\right\} $
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align}
+\frac{\partial L(\theta)}{\partial\theta} & =\frac{1}{2}\int_{\Omega}\frac{\partial}{\partial\theta}\left(f_{\theta}(x)-y(x)\right)^{2}\rho(x)\,\mathrm{d}x=\frac{1}{2}\int_{\Omega}\frac{\partial}{\partial\theta}\left(\sum_{k=0}^{\infty}d_{k}(\theta)q_{k}(x)-y(x)\right)^{2}\rho(x)\,\mathrm{d}x\nonumber \\
+ & =\int_{\Omega}\left(\sum_{k=0}^{\infty}d_{k}(\theta)q_{k}(x)-y(x)\right)\frac{\partial}{\partial\theta}\left(\sum_{k'=0}^{\infty}d_{k'}(\theta)q_{k'}(x)\right)\rho(x)\,\mathrm{d}x\nonumber \\
+ & =\sum_{k=0}^{\infty}\sum_{k'=0}^{\infty}d_{k}(\theta)\left\langle q_{k},q_{k'}\right\rangle _{\rho}\frac{\partial}{\partial\theta}d_{k'}(\theta)-\sum_{k=0}^{\infty}\left\langle q_{k},y\right\rangle _{\rho}\frac{\partial}{\partial\theta}d_{k}(\theta)\nonumber \\
+ & =\sum_{k=0}^{\infty}\left(\sum_{k'=0}^{\infty}d_{k}(\theta)\left\langle q_{k},q_{k'}\right\rangle _{\rho}\frac{\partial}{\partial\theta}d_{k'}(\theta)-\left\langle q_{k},y\right\rangle _{\rho}\frac{\partial}{\partial\theta}d_{k}(\theta)\right).\label{eq:grad-L-q}
+\end{align}
+
+\end_inset
+
+Since 
+\begin_inset Formula $q_{k}$
+\end_inset
+
+ is not basis in DOGFS, now 
+\begin_inset Formula $\left\langle q_{k},q_{k'}\right\rangle _{\rho}\neq\delta_{kk'}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $k$
+\end_inset
+
+-th 
+\begin_inset Quotes eld
+\end_inset
+
+Frequency
+\begin_inset Quotes erd
+\end_inset
+
+ component 
+\begin_inset Formula $\left\langle q_{k},y\right\rangle _{\rho}$
+\end_inset
+
+ is in effect with all 
+\begin_inset Formula $d_{k}(\theta)$
+\end_inset
+
+, which are the 
+\begin_inset Quotes eld
+\end_inset
+
+frequency
+\begin_inset Quotes erd
+\end_inset
+
+ components of 
+\begin_inset Formula $f_{\theta}$
+\end_inset
+
+.
+ i.e.
+ The concept of frequency domain weighted fitting broke.
+\end_layout
+
+\begin_layout Standard
+One might argue that:
+\end_layout
+
+\begin_layout Itemize
+It is possible that the concept of 
+\begin_inset Quotes eld
+\end_inset
+
+frequency
+\begin_inset Quotes erd
+\end_inset
+
+ in 
+\begin_inset Formula $\left\{ q_{k}\right\} $
+\end_inset
+
+ is not that different from 
+\begin_inset Formula $\left\{ p_{k}\right\} $
+\end_inset
+
+.
+ Probably true in some case, but obviously, the analysis will become more
+ complex.
+\end_layout
+
+\begin_layout Itemize
+Why not keep use the inner product 
+\begin_inset Formula $\left\langle \cdot,\cdot\right\rangle _{\rho_{q}}$
+\end_inset
+
+ in Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:grad-L-q"
+
+\end_inset
+
+? The answer is, you gain nothing:
+\begin_inset Formula 
+\begin{align*}
+\frac{\partial L(\theta)}{\partial\theta} & =\frac{1}{2}\int_{\Omega}\frac{\partial}{\partial\theta}\left(\sum_{k=0}^{\infty}d_{k}(\theta)\sqrt{\frac{\rho(x)}{\rho_{q}(x)}}q_{k}(x)-\sqrt{\frac{\rho(x)}{\rho_{q}(x)}}y(x)\right)^{2}\rho_{q}(x)\,\mathrm{d}x\\
+ & =\sum_{k=0}^{\infty}\left(\sum_{k'=0}^{\infty}d_{k}(\theta)\left\langle q_{k},\frac{\rho}{\rho_{q}}q_{k'}\right\rangle _{\rho_{q}}\frac{\partial}{\partial\theta}d_{k'}(\theta)-\left\langle q_{k},\frac{\rho}{\rho_{q}}y\right\rangle _{\rho_{q}}\frac{\partial}{\partial\theta}d_{k}(\theta)\right).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Lemmas
+\end_layout
+
+\begin_layout Standard
+See Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "gottlieb_numerical_1977,trefethen_approximation_2013"
+
+\end_inset
+
+.
+ Orthogonal polynomial is an active field in 1910s see Bernstein et al.
+\end_layout
+
+\begin_layout Subsection
+Chebyshev Approximations
+\end_layout
+
+\begin_layout Standard
+Theorems for absolutely continuous functions.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 7.1 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Assume 
+\begin_inset Formula $f,\ldots,f^{(\nu-1)}$
+\end_inset
+
+ be absolutely continuous on 
+\begin_inset Formula $[-1,1]$
+\end_inset
+
+ and 
+\begin_inset Formula $f^{(\nu)}$
+\end_inset
+
+ is of bounded variation 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ Then for 
+\begin_inset Formula $\forall k\geq\nu+1$
+\end_inset
+
+, the Chebyshev coefficients of 
+\begin_inset Formula $f$
+\end_inset
+
+ satisfy
+\begin_inset Formula 
+\[
+\left|a_{k}\right|\leq\frac{2V}{\pi k(k-1)\cdots(k-\nu)}\leq\frac{2V}{\pi(k-\nu)^{\nu+1}}.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:cheb-coef-cn"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 7.2 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ The same condition as Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+, then for 
+\begin_inset Formula $\forall n>\nu$
+\end_inset
+
+, its Chebyshev projections satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-f_{n}\right\Vert _{\infty}\leq\frac{2V}{\pi\nu(n-\nu)^{\nu}}
+\]
+
+\end_inset
+
+and its Chebyshev interpolants satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-p_{n}\right\Vert _{\infty}\leq\frac{4V}{\pi\nu(n-\nu)^{\nu}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Theorems for analytical functions.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 8.1 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Assume 
+\begin_inset Formula $f$
+\end_inset
+
+ analytic in 
+\begin_inset Formula $[-1,1]$
+\end_inset
+
+ be analytically continuable to the open Bernstein ellipse 
+\begin_inset Formula $E_{\rho}$
+\end_inset
+
+ (note 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Bernstein ellipse 
+\begin_inset Formula $E_{\rho}$
+\end_inset
+
+: foci 1 and -1 with semimajor and semiminor axis lengths summing to 
+\begin_inset Formula $\rho$
+\end_inset
+
+ in complex plane.
+\end_layout
+
+\end_inset
+
+), where it satisfies 
+\begin_inset Formula $\left|f(x)\right|\leq M$
+\end_inset
+
+ for some 
+\begin_inset Formula $M$
+\end_inset
+
+.
+ Then its Chebyshev coefficients satisfy 
+\begin_inset Formula $\left|a_{0}\right|\leq M$
+\end_inset
+
+ and
+\begin_inset Formula 
+\[
+\left|a_{k}\right|\leq2M\rho^{-k},\quad k\geq1.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:cheb-coef-analytical"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 8.2 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ The same condition as Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+, then for 
+\begin_inset Formula $\forall n\geq0$
+\end_inset
+
+ its Chebyshev projections satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-f_{n}\right\Vert _{\infty}\leq\frac{2M\rho^{-n}}{\rho-1}
+\]
+
+\end_inset
+
+and its Chebyshev interpolants satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-p_{n}\right\Vert _{\infty}\leq\frac{4M\rho^{-n}}{\rho-1}.
+\]
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection
+General Theorems
+\end_layout
+
+\begin_layout Standard
+General theorems about polynomial approximations.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 16.1 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Let 
+\begin_inset Formula $f\in C\left([-1,1]\right)$
+\end_inset
+
+ have degree 
+\begin_inset Formula $n$
+\end_inset
+
+ Chebyshev projection 
+\begin_inset Formula $f_{n}$
+\end_inset
+
+, Chebyshev interpolant 
+\begin_inset Formula $p_{n}$
+\end_inset
+
+, and best approximant 
+\begin_inset Formula $p_{n}^{*}$
+\end_inset
+
+, 
+\begin_inset Formula $n\geq1$
+\end_inset
+
+.
+ Then
+\begin_inset Formula 
+\[
+\left\Vert f-f_{n}\right\Vert _{\infty}\leq\left(4+\frac{4}{\pi^{2}}\log(n+1)\right)\left\Vert f-p_{n}^{*}\right\Vert _{\infty},
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\Vert f-p_{n}\right\Vert _{\infty}\leq\left(2+\frac{2}{\pi}\log(n+1)\right)\left\Vert f-p_{n}^{*}\right\Vert _{\infty}.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:bound-cheb-from-best"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Two theorems about near-best approximation.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 12.1 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Given 
+\begin_inset Formula $f\in C\left([-1,1]\right)$
+\end_inset
+
+, let 
+\begin_inset Formula $\rho$
+\end_inset
+
+ (
+\begin_inset Formula $1\leq\rho\leq\infty$
+\end_inset
+
+) be the parameter of the largest Bernstein ellipse 
+\begin_inset Formula $E_{\rho}$
+\end_inset
+
+ to which 
+\begin_inset Formula $f$
+\end_inset
+
+ can be analytically continued, and let 
+\begin_inset Formula $\{p_{n}\}$
+\end_inset
+
+ be the interpolants to 
+\begin_inset Formula $f$
+\end_inset
+
+ in any sequence of grids 
+\begin_inset Formula $\left\{ x_{k}\right\} $
+\end_inset
+
+ in 
+\begin_inset Formula $[-1,1]$
+\end_inset
+
+ such that
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Formula 
+\[
+\lim_{n\rightarrow\infty}M_{n}^{1/n}=\frac{1}{2},\quad M_{n}=\sup_{x\in[-1,1]}\left|l(x)\right|,\quad l(x)=\prod_{k=0}^{n}(x-x_{k}),
+\]
+
+\end_inset
+
+then the errors satisfy
+\begin_inset Formula 
+\[
+\lim_{n\rightarrow\infty}\left\Vert f-p_{n}\right\Vert _{\infty}^{1/n}=\rho^{-1}.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:near-best-condition"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 15.1 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Let 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ be the Lebesgue constant for a linear projection 
+\begin_inset Formula $L$
+\end_inset
+
+ of 
+\begin_inset Formula $C\left([-1,1]\right)$
+\end_inset
+
+ onto 
+\begin_inset Formula $\mathcal{P}_{n}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $f$
+\end_inset
+
+ be a function in 
+\begin_inset Formula $C\left([-1,1]\right)$
+\end_inset
+
+, 
+\begin_inset Formula $p=Lf$
+\end_inset
+
+ the corresponding polynomial approximant to 
+\begin_inset Formula $f$
+\end_inset
+
+, and 
+\begin_inset Formula $p^{*}$
+\end_inset
+
+ the best approximation.
+ Then
+\begin_inset Formula 
+\[
+\left\Vert f-p\right\Vert _{\infty}\leq(\Lambda+1)\left\Vert f-p^{*}\right\Vert _{\infty}
+\]
+
+\end_inset
+
+where the Lebesgue constant is defined as
+\begin_inset Formula 
+\[
+\Lambda\triangleq\sup_{f}\frac{\left\Vert p\right\Vert _{\infty}}{\left\Vert f\right\Vert _{\infty}}=\sup_{x\in[-1,1]}\sum_{j=0}^{n}\left|l_{j}(x)\right|,\quad l_{j}(x)=\frac{\prod_{k\neq j}(x-x_{k})}{\prod_{k\neq j}(x_{j}-x_{k})}.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:bound-away-from-best"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:near-best-condition"
+
+\end_inset
+
+ and Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:bound-away-from-best"
+
+\end_inset
+
+ imply that 
+\begin_inset Formula $\lim_{n\rightarrow\infty}\Lambda_{n}^{1/n}=1$
+\end_inset
+
+ concludes near best convergent for 
+\begin_inset Formula $f\in C\left([-1,1]\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "fouriers"
+options "siam"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,1002 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-std
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2cm
+\rightmargin 2.5cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Gradient Descent Dynamics of 1-Hidden Layer DNN
+\end_layout
+
+\begin_layout Section
+Reformulation of Gradient Descent in Generalized Fourier Series (GFS)
+\end_layout
+
+\begin_layout Subsection
+The 2-norm Loss and Derived Generalized Fourier Series Expansion
+\end_layout
+
+\begin_layout Standard
+The problem setup is to fit 
+\begin_inset Formula $J$
+\end_inset
+
+ given pairs of feature and label (inputs and outputs) 
+\begin_inset Formula $\left\{ \left(x_{j},y_{j}\right)\right\} $
+\end_inset
+
+ by a function 
+\begin_inset Formula $\Upsilon_{\theta}(x)$
+\end_inset
+
+ with parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ (usually a vector).
+ Without loss of generality, we limite the range of 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ to 
+\begin_inset Formula $[-1,1]$
+\end_inset
+
+.
+ It is possible to generalize to high dimensional 
+\begin_inset Formula $x_{j}\in[-1,1]^{d}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We have the 2-norm loss for the error of the fitting:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\tilde{L}_{J}(\theta)=\frac{1}{2J}\sum_{j=1}^{J}\left(\Upsilon_{\theta}(x_{j})-y_{j}\right)^{2}.\label{eq:Loss-sample}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assume the samples 
+\begin_inset Formula $\left\{ x_{j}\right\} $
+\end_inset
+
+ are draw from a distribution 
+\begin_inset Formula $\rho(x)$
+\end_inset
+
+, and the labels are come from an underlying function 
+\begin_inset Formula $y(x)$
+\end_inset
+
+: 
+\begin_inset Formula $y_{j}=y(x_{j})$
+\end_inset
+
+.
+ Now let 
+\begin_inset Formula $J\rightarrow\infty$
+\end_inset
+
+, we should have a theoretical loss 
+\begin_inset Formula $L(\theta)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\tilde{L}_{J}(\theta)\rightarrow L(\theta)\quad\mathrm{as}\ J\rightarrow\infty,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+L(\theta)=\frac{1}{2}\int_{\Omega}\left(\Upsilon_{\theta}(x)-y(x)\right)^{2}\rho(x)\,\mathrm{d}x.\label{eq:Loss}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Loss"
+
+\end_inset
+
+ naturally induced a norm and an inner product (assume all real functions)
+\begin_inset Formula 
+\begin{equation}
+\left\Vert f\right\Vert _{\rho}=\int_{\Omega}f^{2}(x)\rho(x)\,\mathrm{d}x,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\langle f,g\right\rangle _{\rho}=\int_{\Omega}f(x)g(x)\rho(x)\,\mathrm{d}x.\label{eq:inner-product}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Under the inner product in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:inner-product"
+
+\end_inset
+
+, there exist a set of orthonomal polynomial basis 
+\begin_inset Formula $\left\{ p_{k}(x)\right\} _{k=0}^{\infty}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\left\langle p_{k},p_{j}\right\rangle _{\rho}=\delta_{kj}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In 1-D case, each 
+\begin_inset Formula $p_{k}(x)$
+\end_inset
+
+ has exactly 
+\begin_inset Formula $k$
+\end_inset
+
+ zeros.
+ Therefore the subscript 
+\begin_inset Formula $k$
+\end_inset
+
+ has similar meaning as the 
+\begin_inset Formula $k$
+\end_inset
+
+ in Fourier mode 
+\begin_inset Formula $e^{\mathrm{i}kx}$
+\end_inset
+
+, i.e.
+ the frequency.
+\end_layout
+
+\begin_layout Standard
+The fitting function 
+\begin_inset Formula $\Upsilon_{\theta}$
+\end_inset
+
+ (if piecewise continuous) can then expanded in Generalized Fourier Series
+ (GFS):
+\begin_inset Formula 
+\begin{equation}
+\Upsilon_{\theta}(x)=\sum_{k=0}^{\infty}c_{k}(\theta)p_{k}(x)\quad\textrm{(a.e.)}\label{eq:orth-expand}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{k}(\theta)=\left\langle \Upsilon_{\theta},p_{k}\right\rangle _{\rho}\label{eq:expand-coef}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Effectiveness of GFS in Representing Smooth Functions
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Effectiveness-of-GFS"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+See Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "gottlieb_numerical_1977,trefethen_approximation_2013"
+
+\end_inset
+
+.
+ Here list only theorems for Chebyshev polynomials.
+\end_layout
+
+\begin_layout Subsubsection
+Chebyshev Approximations
+\end_layout
+
+\begin_layout Standard
+Theorems for absolutely continuous functions.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 7.1 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Assume 
+\begin_inset Formula $f,\ldots,f^{(\nu-1)}$
+\end_inset
+
+ be absolutely continuous on 
+\begin_inset Formula $[-1,1]$
+\end_inset
+
+ and 
+\begin_inset Formula $f^{(\nu)}$
+\end_inset
+
+ is of bounded variation 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ Then for 
+\begin_inset Formula $\forall k\geq\nu+1$
+\end_inset
+
+, the Chebyshev coefficients of 
+\begin_inset Formula $f$
+\end_inset
+
+ satisfy
+\begin_inset Formula 
+\[
+\left|a_{k}\right|\leq\frac{2V}{\pi k(k-1)\cdots(k-\nu)}\leq\frac{2V}{\pi(k-\nu)^{\nu+1}}.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:cheb-coef-cn"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 7.2 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ The same condition as Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+, then for 
+\begin_inset Formula $\forall n>\nu$
+\end_inset
+
+, its Chebyshev projections satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-f_{n}\right\Vert _{\infty}\leq\frac{2V}{\pi\nu(n-\nu)^{\nu}}
+\]
+
+\end_inset
+
+and its Chebyshev interpolants satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-p_{n}\right\Vert _{\infty}\leq\frac{4V}{\pi\nu(n-\nu)^{\nu}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Theorems for analytical functions.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 8.1 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Assume 
+\begin_inset Formula $f$
+\end_inset
+
+ analytic in 
+\begin_inset Formula $[-1,1]$
+\end_inset
+
+ be analytically continuable to the open Bernstein ellipse 
+\begin_inset Formula $E_{\rho}$
+\end_inset
+
+ (note 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Bernstein ellipse 
+\begin_inset Formula $E_{\rho}$
+\end_inset
+
+: foci 1 and -1 with semimajor and semiminor axis lengths summing to 
+\begin_inset Formula $\rho$
+\end_inset
+
+ in complex plane.
+\end_layout
+
+\end_inset
+
+), where it satisfies 
+\begin_inset Formula $\left|f(x)\right|\leq M$
+\end_inset
+
+ for some 
+\begin_inset Formula $M$
+\end_inset
+
+.
+ Then its Chebyshev coefficients satisfy 
+\begin_inset Formula $\left|a_{0}\right|\leq M$
+\end_inset
+
+ and
+\begin_inset Formula 
+\[
+\left|a_{k}\right|\leq2M\rho^{-k},\quad k\geq1.
+\]
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:cheb-coef-analytical"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Theorem 8.2 in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "trefethen_approximation_2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ The same condition as Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+, then for 
+\begin_inset Formula $\forall n\geq0$
+\end_inset
+
+ its Chebyshev projections satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-f_{n}\right\Vert _{\infty}\leq\frac{2M\rho^{-n}}{\rho-1}
+\]
+
+\end_inset
+
+and its Chebyshev interpolants satisfy
+\begin_inset Formula 
+\[
+\left\Vert f-p_{n}\right\Vert _{\infty}\leq\frac{4M\rho^{-n}}{\rho-1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Evolution of GFS in Gradient Descent (GD)
+\end_layout
+
+\begin_layout Standard
+The Gradient Descent (GD) algorithm can be written in terms of ODE:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}\theta}{\mathrm{d}t}=-\alpha\frac{\partial L(\theta)}{\partial\theta}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and
+\begin_inset Formula 
+\begin{align}
+\frac{\partial L(\theta)}{\partial\theta} & =\frac{1}{2}\frac{\partial}{\partial\theta}\left\langle f_{\theta}-y,f_{\theta}-y\right\rangle _{\rho}=\frac{1}{2}\frac{\partial}{\partial\theta}\sum_{k=0}^{\infty}\left\langle f_{\theta}-y,p_{k}\right\rangle _{\rho}^{2}=\sum_{k=0}^{\infty}\left\langle f_{\theta}-y,p_{k}\right\rangle _{\rho}\frac{\partial}{\partial\theta}\left\langle f_{\theta},p_{k}\right\rangle _{\rho}\nonumber \\
+ & =\sum_{k=0}^{\infty}\left(c_{k}(\theta)-\left\langle y,p_{k}\right\rangle _{\rho}\right)\frac{\partial c_{k}(\theta)}{\partial\theta}.\label{eq:Loss-d}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So the dynamics of the GFS coefficients are:
+\begin_inset Formula 
+\begin{align}
+\frac{\mathrm{d}(c(\theta)-\hat{y})}{\mathrm{d}t} & =\frac{\mathrm{d}c_{k}(\theta)}{\mathrm{d}\theta}\cdot\frac{\mathrm{d}\theta}{\mathrm{d}t}\nonumber \\
+ & =-\alpha\left[\frac{\mathrm{d}c_{k}(\theta)}{\mathrm{d}\theta}\right]\left[\frac{\mathrm{d}c_{k}(\theta)}{\mathrm{d}\theta}\right]^{T}(c(\theta)-\hat{y})\label{eq:coef-dym}
+\end{align}
+
+\end_inset
+
+where the vectors are defined as
+\begin_inset Formula 
+\[
+\hat{y}=\left[\left\langle y,p_{k}\right\rangle _{\rho}\right]_{k=1}^{\infty}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+c(\theta)=\left[c_{k}(\theta)\right]_{k=1}^{\infty}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that, formally, a system of linear equation
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\vec{r}}{\mathrm{d}t}=-\alpha A\vec{r},\label{eq:linear-dym}
+\end{equation}
+
+\end_inset
+
+has solution with arbitrary constant vector 
+\begin_inset Formula $\vec{C}$
+\end_inset
+
+ (assume 
+\begin_inset Formula $A$
+\end_inset
+
+ is constant here):
+\begin_inset Formula 
+\begin{equation}
+\vec{r}(t)=e^{-\alpha At}\vec{C}.\label{eq:linear-solution}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is clear that the eigenvalues of 
+\begin_inset Formula $A$
+\end_inset
+
+ goven the dynamics of Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:linear-dym"
+
+\end_inset
+
+.
+ With substitution 
+\begin_inset Formula $\vec{r}(t)=c(\theta(t))$
+\end_inset
+
+, 
+\begin_inset Formula $A=\left[\frac{\mathrm{d}c_{k}(\theta)}{\mathrm{d}\theta}\right]\left[\frac{\mathrm{d}c_{k}(\theta)}{\mathrm{d}\theta}\right]^{T}$
+\end_inset
+
+, we see the study of eigenvalues also greatly helps the understanding of
+ Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:coef-dym"
+
+\end_inset
+
+, despite 
+\begin_inset Formula $A$
+\end_inset
+
+ is now time dependent.
+\end_layout
+
+\begin_layout Section
+Structure of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Recall
+\begin_inset Formula 
+\[
+A=\left[\frac{\mathrm{d}c_{k}(\theta)}{\mathrm{d}\theta}\right]\left[\frac{\mathrm{d}c_{k}(\theta)}{\mathrm{d}\theta}\right]^{T}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note: 
+\begin_inset Formula $A$
+\end_inset
+
+ is essentially an 
+\begin_inset Formula $\infty\times\infty$
+\end_inset
+
+ matrix, here assume it is finitely truncated.
+ The truncation is acceptable due to the convergence property in sec 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Effectiveness-of-GFS"
+
+\end_inset
+
+.
+ And it is possible to generalize the following matrix analysis to infinite
+ dimension.
+\end_layout
+
+\begin_layout Standard
+Now we need the detailed form of 
+\begin_inset Formula $\Upsilon_{\theta}(x)$
+\end_inset
+
+ to investigate the structure of the matrix 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+1-Hidden Layer DNN
+\end_layout
+
+\begin_layout Standard
+For 1-Hidden Layer DNN (
+\begin_inset Formula $\theta=\{a_{l},w_{l},b_{l}\}$
+\end_inset
+
+
+\begin_inset Formula $_{l=1}^{L}$
+\end_inset
+
+), with 
+\begin_inset Formula $x\in[-1,1]$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Upsilon_{\theta}=\sum_{l=1}^{L}a_{l}\sigma(w_{l}x+b_{l}).\label{eq:1-layer-ann}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The partial derivatives
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\Upsilon_{\theta}}{\partial\theta}=\begin{cases}
+{\displaystyle \sigma(w_{l}x+b_{l})} & \theta=a_{l}\\
+a_{l}\sigma'(w_{l}x+b_{l}) & \theta=b_{l}\\
+a_{l}\sigma'(w_{l}x+b_{l})x & \theta=w_{l}
+\end{cases}\quad l=1,\ldots,L,\label{eq:f-d}
+\end{equation}
+
+\end_inset
+
+is only possibly slightly less smooth than the 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+ itself.
+\end_layout
+
+\begin_layout Subparagraph
+Case 1
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+ is analytical (in the sense of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+), so 
+\begin_inset Formula $\Upsilon_{\theta}(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}$
+\end_inset
+
+ are also analytical.
+ Let's assume that there is no singularity in a neighborhood of real axis
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+If there is singularity on the real axis, then it will be non-smooth with
+ certain translation parameter 
+\begin_inset Formula $b_{l}$
+\end_inset
+
+.
+ The estimation of 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ will be more complicated and problem dependent.
+\end_layout
+
+\end_inset
+
+ for the domain of 
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+ in complex plane.
+ i.e.
+ the nearest singularity is 
+\begin_inset Formula $\pm\mathrm{i}B$
+\end_inset
+
+ (
+\begin_inset Formula $B>0$
+\end_inset
+
+) away from the real axis.
+ In this setup, the Bernstein ellipse parameter 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ (the 
+\begin_inset Formula $\rho$
+\end_inset
+
+ in Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-analytical"
+
+\end_inset
+
+, not to be confused with the weighting 
+\begin_inset Formula $\rho(x)$
+\end_inset
+
+) is 
+\begin_inset Formula $\Theta_{\sigma(x)}\geq B+\sqrt{1+B^{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+So the Bernstein ellipse parameter for 
+\begin_inset Formula $\frac{\partial\Upsilon_{\theta}}{\partial\theta}$
+\end_inset
+
+ is 
+\begin_inset Formula $\Theta_{\sigma(w_{l}x)}=B/w_{l}+\sqrt{1+\left(B/w_{l}\right)^{2}}\approx\Theta_{\sigma(x)}/w_{l}$
+\end_inset
+
+ (
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $\approx$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ when 
+\begin_inset Formula $r_{l}\ll B$
+\end_inset
+
+), we get
+\begin_inset Formula 
+\[
+\left|\frac{\partial c_{k}(\theta)}{\partial\theta}\right|<2M\Theta_{\sigma(w_{l}x)}^{-k}\sim2M\left(\frac{w_{l}}{\Theta_{\sigma(x)}}\right)^{k},\quad k\geq1.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subparagraph
+Case 2
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\sigma(x)$
+\end_inset
+
+ is continuous up to 
+\begin_inset Formula $(\nu-1)$
+\end_inset
+
+-th derivative (in the sense of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+), so 
+\begin_inset Formula $f_{\theta}(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{\partial f_{\theta}(x)}{\partial\theta}$
+\end_inset
+
+ are also smooth in the same sense, with 
+\begin_inset Formula $\tilde{\nu}=\nu-1$
+\end_inset
+
+ for 
+\begin_inset Formula $\theta=b_{l},r_{l}$
+\end_inset
+
+, 
+\begin_inset Formula $\tilde{\nu}=\nu$
+\end_inset
+
+ for 
+\begin_inset Formula $\theta=w_{l}$
+\end_inset
+
+.
+ Due to Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lem:cheb-coef-cn"
+
+\end_inset
+
+, we have
+\begin_inset Formula 
+\[
+\left|\frac{\partial c_{k}(\theta)}{\partial\theta}\right|\leq\frac{2V}{\pi(k-\nu)^{\tilde{\nu}+1}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Related Problems That Also Encounter Similar Matrix
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "fouriers"
+options "siam"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
