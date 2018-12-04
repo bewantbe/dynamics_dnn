@@ -312,7 +312,7 @@ The fitting function
 \begin_inset Formula $\Upsilon_{\theta}$
 \end_inset
 
-, if piecewise continuous, can then expanded in Generalized Fourier Series
+, if piecewise continuous, can be expanded in Generalized Fourier Series
  (GFS):
 \begin_inset Formula 
 \begin{equation}
@@ -629,11 +629,15 @@ and its Chebyshev interpolants satisfy
 \end_layout
 
 \begin_layout Subsection
-Evolution of GFS in Gradient Descent (GD)
+Evolution of GFS in Gradient Descent
 \end_layout
 
 \begin_layout Standard
-The evolution of parameters depends on the gradient of loss.
+The evolution of parameter 
+\begin_inset Formula $\theta$
+\end_inset
+
+ depends on the gradient of loss.
  In terms of GFS, the gradient can be written as:
 \begin_inset Formula 
 \begin{align}
@@ -663,7 +667,11 @@ where
 \end_layout
 
 \begin_layout Standard
-The Gradient Descent (GD) algorithm can be rewritten in ODE as a limit of
+The trajactory of 
+\begin_inset Formula $\theta(t)$
+\end_inset
+
+ in gradient descent (GD) algorithm can be rewritten in ODE as a limit of
  small step size:
 \end_layout
 
@@ -680,14 +688,27 @@ where
 \end_inset
 
  is the learning rate, 
-\begin_inset Formula $\left[\cdot\right]^{T}$
+\begin_inset Formula $\cdot^{T}$
 \end_inset
 
- means transpose (of the Jacobian matrix inside).
+ means transpose of the Jacobian matrix inside.
+ And
+\begin_inset Formula 
+\[
+\left[\frac{\partial L(\theta)}{\partial\theta}\right]=\begin{bmatrix}\frac{\partial L(\theta)}{\partial\theta_{1}} & \frac{\partial L(\theta)}{\partial\theta_{2}} & \cdots\end{bmatrix}.
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Now the dynamics of the GFS coefficients can be derived with help of Eq.
+The dynamics of the GFS coefficients 
+\begin_inset Formula $c_{k}(\theta(t))$
+\end_inset
+
+ can be derived with help of Eq.
  
 \begin_inset CommandInset ref
 LatexCommand eqref
@@ -719,7 +740,7 @@ reference "eq:theta-time"
 Note that, formally, a system of linear equation
 \begin_inset Formula 
 \begin{equation}
-\frac{\mathrm{d}\vec{r}}{\mathrm{d}t}=-\alpha A\vec{r},\label{eq:linear-dym}
+\frac{\mathrm{d}\vec{r}}{\mathrm{d}t}=-\alpha H\vec{r},\label{eq:linear-dym}
 \end{equation}
 
 \end_inset
@@ -738,7 +759,15 @@ reference "eq:linear-solution"
  is constant here):
 \begin_inset Formula 
 \begin{equation}
-\vec{r}(t)=e^{-\alpha At}\vec{C}.\label{eq:linear-solution}
+\vec{r}(t)=e^{-\alpha At}\vec{C}=Pe^{-\alpha\Lambda t}P^{-1}\vec{C},\label{eq:linear-solution}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+H=P\Lambda P^{-1},
 \end{equation}
 
 \end_inset
@@ -752,7 +781,7 @@ where
 
 \begin_layout Standard
 It is clear that the eigenvalues of 
-\begin_inset Formula $A$
+\begin_inset Formula $H$
 \end_inset
 
  govern the dynamics of Eq.
@@ -769,7 +798,7 @@ reference "eq:linear-dym"
 With substitution
 \begin_inset Formula 
 \begin{equation}
-\vec{r}(t)=\left[c_{k}(\theta(t))-\left\langle y,p_{k}\right\rangle _{\rho}\right]_{k=0}^{\infty},
+\vec{r}(t)=\left[c_{k}(\theta(t))-\left\langle y,p_{k}\right\rangle _{\rho}\right]_{k\in\mathbb{N}_{0}},
 \end{equation}
 
 \end_inset
@@ -777,12 +806,36 @@ With substitution
 
 \begin_inset Formula 
 \begin{equation}
-A=\left[\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]\left[\frac{\partial c_{k'}(\theta)}{\partial\theta}\right]^{T}\right]_{k,k'=0}^{\infty}\label{eq:A-evolve-matrix}
+H=\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}^{T},\label{eq:A-evolve-matrix}
 \end{equation}
 
 \end_inset
 
-we see the study of eigenvalues also greatly helps the understanding of
+where 
+\begin_inset Formula $\left[\cdot\right]_{k\in\mathbb{N}_{0}}$
+\end_inset
+
+ means vertically stack the terms indexed by 
+\begin_inset Formula $k$
+\end_inset
+
+ to form a possibly infinite sized matrix.
+ e.g.
+\begin_inset Formula 
+\[
+\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}=\begin{bmatrix}\frac{\partial c_{0}(\theta)}{\partial\theta_{1}} & \frac{\partial c_{0}(\theta)}{\partial\theta_{2}} & \cdots\\
+\frac{\partial c_{1}(\theta)}{\partial\theta_{1}} & \frac{\partial c_{1}(\theta)}{\partial\theta_{2}}\\
+\vdots &  & \ddots
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We see the study of eigenvalues could greatly helps the understanding of
  Eq.
 \begin_inset CommandInset ref
 LatexCommand eqref
@@ -791,15 +844,20 @@ reference "eq:coef-dym"
 \end_inset
 
 , despite 
-\begin_inset Formula $A$
+\begin_inset Formula $H$
 \end_inset
 
  is now time dependent.
+ Now we turn to the analysis of matrix 
+\begin_inset Formula $H$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
 Structure of the matrix 
-\begin_inset Formula $A$
+\begin_inset Formula $H$
 \end_inset
 
 
@@ -813,13 +871,13 @@ Structure of the matrix
 \begin_inset Formula $\infty\times\infty$
 \end_inset
 
- matrix, for simplicity, here assume it is finitely truncated.
- The truncation is possible due to the fast decaying property of 
+ matrix, for simplicity, assume it is finitely truncated.
+ The truncation is reasonable due to the fast decaying property of 
 \begin_inset Formula $c_{k}(\theta)$
 \end_inset
 
  .
- Generalization to infinite dimension is under concideration.
+ Analysis of the infinite dimension problem directly is under concideration.
 \end_layout
 
 \begin_layout Standard
@@ -828,7 +886,7 @@ Now we need the detailed form of
 \end_inset
 
  to investigate the structure of the matrix 
-\begin_inset Formula $A$
+\begin_inset Formula $H$
 \end_inset
 
 .
@@ -839,7 +897,7 @@ Now we need the detailed form of
 \end_layout
 
 \begin_layout Standard
-For 1-Hidden Layer DNN (
+The 1-Hidden Layer DNN with parameter 
 \begin_inset Formula $\theta=\{a_{l},w_{l},b_{l}\}$
 \end_inset
 
@@ -847,17 +905,17 @@ For 1-Hidden Layer DNN (
 \begin_inset Formula $_{l=1}^{L}$
 \end_inset
 
-), with 
+ and input range 
 \begin_inset Formula $x\in[-1,1]$
 \end_inset
 
-:
+ is: 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\Upsilon_{\theta}=\sum_{l=1}^{L}a_{l}\sigma(w_{l}x+b_{l}).\label{eq:1-layer-ann}
+\Upsilon_{\theta}(x)\triangleq\sum_{l=1}^{L}a_{l}\sigma(w_{l}x+b_{l}).\label{eq:1-layer-ann}
 \end{equation}
 
 \end_inset
@@ -866,18 +924,18 @@ For 1-Hidden Layer DNN (
 \end_layout
 
 \begin_layout Standard
-For computing matrix 
-\begin_inset Formula $A$
+Matrix 
+\begin_inset Formula $H$
 \end_inset
 
- in Eq.
+ of Eq.
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:A-evolve-matrix"
 
 \end_inset
 
-, we need derivatives of 
+ is computed from derivatives of 
 \begin_inset Formula $\Upsilon_{\theta}$
 \end_inset
 
@@ -994,10 +1052,14 @@ status open
 
 \begin_layout Plain Layout
 The 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ is the 
 \begin_inset Formula $\rho$
 \end_inset
 
- in Lemma 
+ in lemma 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "lem:cheb-coef-analytical"
@@ -1033,7 +1095,7 @@ So the Bernstein ellipse parameter for
 \begin_inset Formula 
 \begin{align}
 \left|\frac{\partial c_{k}(\theta)}{\partial\theta}\right| & <2M\Theta_{\sigma(w_{l}x)}^{-k}=2M\left(B/w_{l}+\sqrt{1+\left(B/w_{l}\right)^{2}}\right)^{-k},\quad k\geq1\label{eq:c-decay-exp}\\
- & \approx\Theta_{\sigma(x)}/w_{l}\quad\textrm{when}\ w_{l}\ll B
+ & \approx2M\left(\Theta_{\sigma(x)}/w_{l}\right)^{-k}\quad(\textrm{when}\ w_{l}\ll B)
 \end{align}
 
 \end_inset
@@ -1068,15 +1130,19 @@ reference "lem:cheb-coef-cn"
 \begin_inset Formula $\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}$
 \end_inset
 
- are also smooth in the same sense, with 
+ are continuous up to 
+\begin_inset Formula $(\tilde{\nu}-1)$
+\end_inset
+
+-th derivative, with 
 \begin_inset Formula $\tilde{\nu}=\nu-1$
 \end_inset
 
  for 
-\begin_inset Formula $\theta=b_{l},w_{l}$
+\begin_inset Formula $\theta=b_{l}\textrm{ and }w_{l}$
 \end_inset
 
-, 
+, or 
 \begin_inset Formula $\tilde{\nu}=\nu$
 \end_inset
 
@@ -1085,17 +1151,17 @@ reference "lem:cheb-coef-cn"
 \end_inset
 
 .
- Due to Lemma 
+ By lemma 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "lem:cheb-coef-cn"
 
 \end_inset
 
-, we have
+, we have upper bound
 \begin_inset Formula 
 \begin{equation}
-\left|\frac{\partial c_{k}(\theta)}{\partial\theta}\right|\leq\frac{2V}{\pi(k-\nu)^{\tilde{\nu}+1}}.\label{eq:c-decay-power}
+\left|\frac{\partial c_{k}(\theta)}{\partial\theta}\right|\leq\frac{2V}{\pi(k-\tilde{\nu})^{\tilde{\nu}+1}}\quad(\forall k>\tilde{\nu}).\label{eq:c-decay-power}
 \end{equation}
 
 \end_inset
@@ -1145,19 +1211,19 @@ reference "eq:A-evolve-matrix"
 
 \end_inset
 
- will also have certain decay property.
- Specifically, there exist matrix 
+ will also have certain decaying property.
+ Specifically, there exist symmetric matrix 
 \begin_inset Formula $B$
 \end_inset
 
- and diagonal matrix 
+ of bounded spectral norm and diagonal matrix 
 \begin_inset Formula $D$
 \end_inset
 
  such that
 \begin_inset Formula 
 \begin{equation}
-A=DBD\label{eq:grad-decompose}
+H=DBD\label{eq:grad-decompose}
 \end{equation}
 
 \end_inset
@@ -1167,11 +1233,11 @@ where matrix
 \end_inset
 
  can be defined as 
-\begin_inset Formula $D=\mathrm{diag}(\left[\Theta_{\sigma(\max(w_{l})x)}^{1-k}\right]_{k=1}^{-\infty})$
+\begin_inset Formula $D=\mathrm{diag}(\left[\Theta_{\sigma(\max(w_{l})x)}^{-k}\right]_{k\in\mathbb{N}_{0}})$
 \end_inset
 
  or 
-\begin_inset Formula $D=\mathrm{diag}(\left[k^{\min(v)-1}\right])$
+\begin_inset Formula $D=\mathrm{diag}(\left[(k+1)^{\min(v)-1}\right]_{k\in\mathbb{N}_{0}})$
 \end_inset
 
 , depending on the smoothness of 
@@ -1180,12 +1246,12 @@ where matrix
 
 .
  Or, a more straightforward way is to define 
-\begin_inset Formula $D=\mathrm{diag}(\left[A_{kk}\right]_{k=1}^{\infty})$
+\begin_inset Formula $D=\mathrm{diag}(\left[H_{kk}\right]_{k\in\mathbb{N}_{0}})$
 \end_inset
 
 .
  And 
-\begin_inset Formula $B=D^{-1}AD^{-1}$
+\begin_inset Formula $B=D^{-1}HD^{-1}$
 \end_inset
 
  where pseudo-inverse of 
@@ -1198,11 +1264,11 @@ where matrix
 \end_inset
 
 , it is easy to show that 
-\begin_inset Formula $D_{kk}=O(\Theta_{\sigma(\max(w_{l})x)}^{1-k})$
+\begin_inset Formula $D_{kk}=O(\Theta_{\sigma(\max(w_{l})x)}^{-k})$
 \end_inset
 
  or 
-\begin_inset Formula $D_{kk}=O(k^{\min(v)-1})$
+\begin_inset Formula $D_{kk}=O(k^{-\min(\tilde{\nu})-1})$
 \end_inset
 
 .
@@ -1216,15 +1282,27 @@ reference "eq:grad-decompose"
 
 \end_inset
 
-, we have
+, due to Min-max theorem of eigenvalues, we have
 \begin_inset Formula 
 \begin{equation}
-\lambda_{i}(A)\leq D_{kk}^{2}\lambda_{1}(B)\label{eq:A-eigval-decay}
+\lambda_{k}(H)\leq D_{kk}^{2}\lambda_{\textrm{max}}(B)\quad\forall k\in\mathbb{N}\label{eq:A-eigval-decay}
 \end{equation}
 
 \end_inset
 
+where 
+\begin_inset Formula $\lambda_{k}(H)$
+\end_inset
 
+ is the 
+\begin_inset Formula $k$
+\end_inset
+
+-th eigenvalue of 
+\begin_inset Formula $H$
+\end_inset
+
+ sorting in descending order.
 \end_layout
 
 \begin_layout Standard
@@ -1232,15 +1310,23 @@ And if
 \begin_inset Formula $\lambda_{\min}(B)>C>0$
 \end_inset
 
-, then the eigenvector of 
-\begin_inset Formula $A$
+, then the eigenvectors of 
+\begin_inset Formula $H$
 \end_inset
 
- is close to unit vector.
+ are close to unit vector.
+\end_layout
+
+\begin_layout Standard
+TODO: add pictures.
 \end_layout
 
 \begin_layout Section
-Related Problems That Encounter Similar Matrix
+Related Problems That Encounter Similar Matrix 
+\begin_inset Formula $H$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1248,10 +1334,10 @@ Hessian of Loss Function
 \end_layout
 
 \begin_layout Standard
-As before
+The hessian of loss function is
 \begin_inset Formula 
 \begin{equation}
-\frac{\mathrm{d}L(\theta)}{\mathrm{d}\theta}=\int_{\Omega}(\Upsilon_{\theta}(x)-y(x))\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\rho(x)\,\mathrm{d}x
+\frac{\partial L(\theta)}{\partial\theta}=\int_{\Omega}(\Upsilon_{\theta}(x)-y(x))\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\rho(x)\,\mathrm{d}x
 \end{equation}
 
 \end_inset
@@ -1259,7 +1345,7 @@ As before
 
 \begin_inset Formula 
 \begin{equation}
-\frac{\mathrm{d}^{2}L(\theta)}{\mathrm{d}\theta\mathrm{d}\theta}=\int_{\Omega}\left(\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]+(\Upsilon_{\theta}(x)-y(x))\frac{\partial^{2}\Upsilon_{\theta}(x)}{\partial\theta\partial\theta}\right)\rho(x)\,\mathrm{d}x
+\nabla_{\theta}\otimes\nabla_{\theta}L(\theta)=\int_{\Omega}\left(\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]+(\Upsilon_{\theta}(x)-y(x))\nabla_{\theta}\otimes\nabla_{\theta}\Upsilon_{\theta}(x)\right)\rho(x)\,\mathrm{d}x
 \end{equation}
 
 \end_inset
@@ -1270,8 +1356,95 @@ As before
 \begin_layout Standard
 Define
 \begin_inset Formula 
+\begin{equation}
+H_{L(\theta)}(x)\triangleq\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the 
+\begin_inset Formula $\theta$
+\end_inset
+
+ reach the global optimal solution, i.e.
+ 
+\begin_inset Formula $\Upsilon_{\theta}(x)\equiv y(x)$
+\end_inset
+
+.
+ The hessian become
+\begin_inset Formula 
+\begin{equation}
+\nabla_{\theta}\otimes\nabla_{\theta}L(\theta^{*})=\bar{H}_{L(\theta^{*})}\triangleq\int_{\Omega}H_{L(\theta^{*})}(x)\rho(x)\,\mathrm{d}x.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Specifically
+\begin_inset Formula 
 \[
-A_{\Upsilon}=\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]
+\frac{\mathrm{d}^{2}L(\theta)}{\mathrm{d}\theta_{i}\mathrm{d}\theta_{j}}=\left\langle \frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{i}},\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{j}}\right\rangle _{\rho}=\sum_{k=0}^{\infty}\frac{\partial c_{k}(\theta)}{\partial\theta_{i}}\cdot\frac{\partial c_{k}(\theta)}{\partial\theta_{j}},
+\]
+
+\end_inset
+
+so
+\begin_inset Formula 
+\begin{equation}
+\nabla_{\theta}\otimes\nabla_{\theta}L(\theta^{*})=\bar{H}_{L(\theta^{*})}=\left[\frac{\partial c_{k}(\theta^{*})}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}^{T}\left[\frac{\partial c_{k}(\theta^{*})}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}.\label{eq:loss-optimal-H}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The matrix 
+\begin_inset Formula $\bar{H}_{L(\theta)}$
+\end_inset
+
+ and 
+\begin_inset Formula $H$
+\end_inset
+
+ has exactly the same eigenvalues.
+ Thus from Sec.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Graded-Matrix"
+
+\end_inset
+
+ we know that the landscape of Loss is extremely flat due to the vast near
+ zero eigenvalues as shown in Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:A-eigval-decay"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For the empirical hessian 
+\begin_inset Formula $\bar{H}_{\tilde{L}(\theta)}\triangleq\nabla_{\theta}\otimes\nabla_{\theta}\tilde{L}_{J}(\theta)$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\bar{H}_{\tilde{L}(\theta)}=\frac{1}{J}\sum_{j=1}^{J}\left(\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]+(\Upsilon_{\theta}(x_{j})-y(x_{j}))\nabla_{\theta}\otimes\nabla_{\theta}\Upsilon_{\theta}(x_{j})\right)
 \]
 
 \end_inset
@@ -1280,14 +1453,15 @@ A_{\Upsilon}=\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]^{T
 \end_layout
 
 \begin_layout Standard
-Due to Eq.
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:orth-expand"
+When near optimal point
+\begin_inset Formula 
+\[
+\bar{H}_{\tilde{L}(\theta^{*})}=
+\]
 
 \end_inset
 
-, 
+
 \end_layout
 
 \begin_layout Subsection
@@ -1298,7 +1472,7 @@ Effective Dimension of Base Function
 Define
 \begin_inset Formula 
 \[
-A_{\sigma}=\left[\sigma(w_{l}x+b_{l})\right]_{l}\left[\sigma(w_{l}x+b_{l})\right]_{l}^{T}.
+H_{\sigma}=\left[\sigma(w_{l}x+b_{l})\right]_{l}\left[\sigma(w_{l}x+b_{l})\right]_{l}^{T}.
 \]
 
 \end_inset
