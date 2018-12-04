@@ -156,11 +156,7 @@ Assume the samples
 \begin_inset Formula $y_{j}=y(x_{j})$
 \end_inset
 
-, 
-\begin_inset Formula $y(x)$
-\end_inset
-
- is .
+.
  Now let 
 \begin_inset Formula $J\rightarrow\infty$
 \end_inset
@@ -312,7 +308,7 @@ The fitting function
 \begin_inset Formula $\Upsilon_{\theta}$
 \end_inset
 
-, if piecewise continuous, can be expanded in Generalized Fourier Series
+, assumed piecewise continuous, can be expanded in Generalized Fourier Series
  (GFS):
 \begin_inset Formula 
 \begin{equation}
@@ -334,7 +330,7 @@ where (a.e.) here means (equal) almost everywhere.
 \begin_inset Formula $\Upsilon_{\theta}(x)$
 \end_inset
 
- is continuous, then it is pointwise equal.
+ is continuous, then it is point-wise equal.
  In later context we will denote both cases by simply equal 
 \begin_inset Quotes eld
 \end_inset
@@ -534,7 +530,7 @@ Bernstein ellipse
 \begin_inset Formula $E_{\rho}$
 \end_inset
 
-: foci 1 and -1 with semimajor and semiminor axis lengths summing to 
+: foci 1 and -1 with semimajor and semi-minor axis lengths summing to 
 \begin_inset Formula $\rho$
 \end_inset
 
@@ -647,10 +643,18 @@ The evolution of parameter
 
 \end_inset
 
-where
+where assuming 
+\begin_inset Formula $y(x)$
+\end_inset
+
+ is piecewise continuous (at least 
+\begin_inset Formula $L^{2}$
+\end_inset
+
+) and
 \begin_inset Formula 
 \begin{equation}
-\hat{y}_{k}=\left\langle y,p_{k}\right\rangle _{\rho}\quad k=0,1,\ldots
+\hat{y}_{k}\triangleq\left\langle y,p_{k}\right\rangle _{\rho}\quad k=0,1,\ldots
 \end{equation}
 
 \end_inset
@@ -667,7 +671,7 @@ where
 \end_layout
 
 \begin_layout Standard
-The trajactory of 
+The trajectory of 
 \begin_inset Formula $\theta(t)$
 \end_inset
 
@@ -691,11 +695,10 @@ where
 \begin_inset Formula $\cdot^{T}$
 \end_inset
 
- means transpose of the Jacobian matrix inside.
- And
+ means transpose of the Jacobian matrix inside, and
 \begin_inset Formula 
 \[
-\left[\frac{\partial L(\theta)}{\partial\theta}\right]=\begin{bmatrix}\frac{\partial L(\theta)}{\partial\theta_{1}} & \frac{\partial L(\theta)}{\partial\theta_{2}} & \cdots\end{bmatrix}.
+\left[\frac{\partial L(\theta)}{\partial\theta}\right]\triangleq\begin{bmatrix}\frac{\partial L(\theta)}{\partial\theta_{1}} & \frac{\partial L(\theta)}{\partial\theta_{2}} & \cdots\end{bmatrix}.
 \]
 
 \end_inset
@@ -745,29 +748,18 @@ Note that, formally, a system of linear equation
 
 \end_inset
 
-has solution Eq.
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:linear-solution"
-
+with constant symmetric matrix 
+\begin_inset Formula $H$
 \end_inset
 
-, (assume 
-\begin_inset Formula $A$
+ and spectral decomposition 
+\begin_inset Formula $H=P\Lambda P^{-1}$
 \end_inset
 
- is constant here):
+ has solution:
 \begin_inset Formula 
 \begin{equation}
-\vec{r}(t)=e^{-\alpha At}\vec{C}=Pe^{-\alpha\Lambda t}P^{-1}\vec{C},\label{eq:linear-solution}
-\end{equation}
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-H=P\Lambda P^{-1},
+\vec{r}(t)=e^{-\alpha Ht}\vec{C}=Pe^{-\alpha\Lambda t}P^{-1}\vec{C},\label{eq:linear-solution}
 \end{equation}
 
 \end_inset
@@ -798,7 +790,7 @@ reference "eq:linear-dym"
 With substitution
 \begin_inset Formula 
 \begin{equation}
-\vec{r}(t)=\left[c_{k}(\theta(t))-\left\langle y,p_{k}\right\rangle _{\rho}\right]_{k\in\mathbb{N}_{0}},
+\vec{r}(t)=\left[c_{k}(\theta(t))-\hat{y}_{k}\right]_{k\in\mathbb{N}_{0}},
 \end{equation}
 
 \end_inset
@@ -819,11 +811,11 @@ where
 \begin_inset Formula $k$
 \end_inset
 
- to form a possibly infinite sized matrix.
+ to form a matrix.
  e.g.
 \begin_inset Formula 
 \[
-\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}=\begin{bmatrix}\frac{\partial c_{0}(\theta)}{\partial\theta_{1}} & \frac{\partial c_{0}(\theta)}{\partial\theta_{2}} & \cdots\\
+\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}\triangleq\begin{bmatrix}\frac{\partial c_{0}(\theta)}{\partial\theta_{1}} & \frac{\partial c_{0}(\theta)}{\partial\theta_{2}} & \cdots\\
 \frac{\partial c_{1}(\theta)}{\partial\theta_{1}} & \frac{\partial c_{1}(\theta)}{\partial\theta_{2}}\\
 \vdots &  & \ddots
 \end{bmatrix}.
@@ -864,7 +856,7 @@ Structure of the matrix
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $A$
+\begin_inset Formula $H$
 \end_inset
 
  is an 
@@ -877,15 +869,15 @@ Structure of the matrix
 \end_inset
 
  .
- Analysis of the infinite dimension problem directly is under concideration.
+ Analysis of the infinite dimension problem directly is under consideration.
 \end_layout
 
 \begin_layout Standard
-Now we need the detailed form of 
+Now we need to know some details of 
 \begin_inset Formula $\Upsilon_{\theta}(x)$
 \end_inset
 
- to investigate the structure of the matrix 
+ for the investigation of matrix 
 \begin_inset Formula $H$
 \end_inset
 
@@ -924,7 +916,14 @@ The 1-Hidden Layer DNN with parameter
 \end_layout
 
 \begin_layout Standard
-Matrix 
+Due to 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:ck-derivative"
+
+\end_inset
+
+, matrix 
 \begin_inset Formula $H$
 \end_inset
 
@@ -939,17 +938,10 @@ reference "eq:H-evolve-matrix"
 \begin_inset Formula $\Upsilon_{\theta}$
 \end_inset
 
- due to 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:ck-derivative"
-
-\end_inset
-
-,
+ :
 \begin_inset Formula 
 \begin{equation}
-\frac{\partial\Upsilon_{\theta}}{\partial\theta}=\begin{cases}
+\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}=\begin{cases}
 {\displaystyle \sigma(w_{l}x+b_{l})} & \theta=a_{l}\\
 a_{l}\sigma'(w_{l}x+b_{l}) & \theta=b_{l}\\
 a_{l}\sigma'(w_{l}x+b_{l})x & \theta=w_{l}
@@ -962,7 +954,7 @@ a_{l}\sigma'(w_{l}x+b_{l})x & \theta=w_{l}
 \end_layout
 
 \begin_layout Standard
-The smoothness of
+The smoothness of 
 \begin_inset Formula $\sigma(x)$
 \end_inset
 
@@ -1046,7 +1038,23 @@ If there is singularity on the real axis, then it will be non-smooth with
 \end_inset
 
 ) away from the real axis.
- In this setup, the Bernstein ellipse parameter 
+ For example, 
+\begin_inset Formula $\sigma(x)=\textrm{sigmoid}(x)=1/(1+\exp(-x))$
+\end_inset
+
+, has singularity 
+\begin_inset Formula $x=\mathrm{i}(\pi+2n\pi)\ \forall n\in\mathbb{Z}$
+\end_inset
+
+, thus 
+\begin_inset Formula $B=\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this setup, the Bernstein ellipse parameter 
 \begin_inset Foot
 status open
 
@@ -1126,7 +1134,8 @@ reference "lem:cheb-coef-cn"
 \begin_inset Formula $\Upsilon_{\theta}(x)$
 \end_inset
 
- and 
+ also.
+ And 
 \begin_inset Formula $\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}$
 \end_inset
 
@@ -1246,7 +1255,7 @@ where matrix
 
 .
  Or, a more straightforward way is to define 
-\begin_inset Formula $D=\mathrm{diag}(\left[H_{kk}\right]_{k\in\mathbb{N}_{0}})$
+\begin_inset Formula $D=\mathrm{diag}(\left[H_{kk}\right]_{k\in\mathbb{N}})$
 \end_inset
 
 .
@@ -1272,6 +1281,18 @@ where matrix
 \end_inset
 
 .
+ The matrix 
+\begin_inset Formula $H$
+\end_inset
+
+ with structure Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:grad-decompose"
+
+\end_inset
+
+ is called graded matrix.
 \end_layout
 
 \begin_layout Standard
@@ -1303,10 +1324,35 @@ where
 \end_inset
 
  sorting in descending order.
+ Due to 
+\begin_inset Formula $H_{jj}=D_{kk}^{2}B_{jj}$
+\end_inset
+
+, Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:H-eigval-decay"
+
+\end_inset
+
+ can also written as (assume 
+\begin_inset Formula $B_{jj}\neq0$
+\end_inset
+
+)
+\begin_inset Formula 
+\begin{equation}
+\lambda_{k}(H)\leq H_{jj}\frac{\lambda_{\textrm{max}}(B)}{B_{jj}}\quad\forall k\in\mathbb{N}.
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-And if 
+If 
 \begin_inset Formula $\lambda_{\min}(B)>C>0$
 \end_inset
 
@@ -1322,7 +1368,190 @@ TODO: add pictures.
 \end_layout
 
 \begin_layout Standard
-TODO: also use Schur–Horn theorem
+Another way to derive it is by the Schur–Horn theorem.
+ The sorted array 
+\begin_inset Formula $\left[H_{r(j)r(j)}\right]_{j\in\mathbb{N}_{0}}$
+\end_inset
+
+ of diagonal 
+\begin_inset Formula $\left[H_{jj}\right]_{j\in\mathbb{N}_{0}}$
+\end_inset
+
+ satisfies
+\begin_inset Formula 
+\begin{equation}
+\sum_{j=1}^{k}H_{r(j)r(j)}\leq\sum_{j=1}^{k}\lambda_{j}\quad k\in\mathbb{N}\label{eq:Hjj-leq-eigval-j}
+\end{equation}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{equation}
+\sum_{j=1}^{\infty}H_{r(j)r(j)}=\sum_{j=1}^{\infty}\lambda_{j}\label{eq:Hjj-eq-eigval-j}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Hjj-eq-eigval-j"
+
+\end_inset
+
+ minus Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Hjj-leq-eigval-j"
+
+\end_inset
+
+, with the fact that 
+\begin_inset Formula $\lambda_{j}\geq0$
+\end_inset
+
+, 
+\begin_inset Formula $H_{jj}\geq0$
+\end_inset
+
+, we get
+\begin_inset Formula 
+\begin{equation}
+\lambda_{k}\leq\sum_{j=k}^{\infty}\lambda_{j}\leq\sum_{j=k}^{\infty}H_{r(j)r(j)}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For example, if 
+\begin_inset Formula $\left|\frac{\partial c_{k}(\theta)}{\partial\theta_{j}}\right|\leq C_{0}\Theta^{-k}\ \forall k,j$
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{equation}
+\left|H_{jk}\right|\leq C_{0}^{2}L\Theta^{-j-k}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\lambda_{k}\leq C_{0}^{2}L\frac{\Theta^{-2k}}{1-\Theta^{-2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A tighter bound can be obtained by (not proved 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $\leq$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+)
+\begin_inset Formula 
+\begin{equation}
+\lambda_{k}(H)=\lambda_{k}(RDDR^{T})\leq C\cdot\left[RDDR^{T}\right]_{kk}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $R$
+\end_inset
+
+ comes from QR decomposition
+\begin_inset Formula 
+\begin{equation}
+QR=\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}^{T}D^{-1}.
+\end{equation}
+
+\end_inset
+
+Or alternatively by Cholesky decomposition (TODO verify this)
+\begin_inset Formula 
+\begin{equation}
+R^{T}R=B
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Further properties:
+\begin_inset Formula 
+\begin{equation}
+\left[RDDR^{T}\right]_{kk}=\sum_{j=k}^{\infty}R_{kj}^{2}D_{jj}^{2}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left|\left[DR^{T}\right]_{ij}\right|\leq\begin{cases}
+C_{1}D_{ii} & i\geq j\\
+0 & i<j
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left|\left[RDDR^{T}\right]_{ij}\right|\leq\sum_{l=\max\{i,j\}}C_{1}^{2}D_{ll}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The matrix 
+\begin_inset Formula $RDDR^{T}$
+\end_inset
+
+ has better decaying structure compare to 
+\begin_inset Formula $H$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left|\left[RDDR^{T}\right]_{ij}\right|\leq C_{1}^{2}\frac{\Theta^{-2\max\{i,j\}}}{1-\Theta^{-2}}.
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1374,13 +1603,15 @@ When the
 \begin_inset Formula $\theta$
 \end_inset
 
- reach the global optimal solution, i.e.
- 
-\begin_inset Formula $\Upsilon_{\theta}(x)\equiv y(x)$
+ reaches the global optimal solution 
+\begin_inset Formula $\theta^{*}$
 \end_inset
 
-.
- The hessian become
+ such that 
+\begin_inset Formula $\Upsilon_{\theta^{*}}(x)\equiv y(x)$
+\end_inset
+
+, the hessian become
 \begin_inset Formula 
 \begin{equation}
 \nabla_{\theta}\otimes\nabla_{\theta}L(\theta^{*})=H_{L(\theta^{*})}.
@@ -1392,10 +1623,10 @@ When the
 \end_layout
 
 \begin_layout Standard
-When writting in terms of GFS,
+When writing in terms of GFS,
 \begin_inset Formula 
 \[
-\frac{\mathrm{d}^{2}L(\theta)}{\mathrm{d}\theta_{i}\mathrm{d}\theta_{j}}=\left\langle \frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{i}},\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{j}}\right\rangle _{\rho}=\sum_{k=0}^{\infty}\frac{\partial c_{k}(\theta)}{\partial\theta_{i}}\cdot\frac{\partial c_{k}(\theta)}{\partial\theta_{j}},
+\left[H_{L(\theta)}\right]_{ij}=\left\langle \frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{i}},\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{j}}\right\rangle _{\rho}=\sum_{k=0}^{\infty}\frac{\partial c_{k}(\theta)}{\partial\theta_{i}}\cdot\frac{\partial c_{k}(\theta)}{\partial\theta_{j}},
 \]
 
 \end_inset
@@ -1594,7 +1825,7 @@ It is clear that
 \end_inset
 
 ....
- Idealy, the parameters 
+ Ideally, the parameters 
 \begin_inset Formula $\left[a_{l}\right]_{l=1\cdots L}$
 \end_inset
 
@@ -1639,7 +1870,7 @@ However, due to the analysis above
 \end_inset
 
  is numerically not full rank.
- To overcome this diffculty, one possibility is to desigin 
+ To overcome this difficulty, one possibility is to design 
 \begin_inset Formula $w_{l}$
 \end_inset
 
@@ -1652,11 +1883,11 @@ However, due to the analysis above
 \end_inset
 
  is reasonable full rank.
- But this could?? break the generarization of 
+ But this could?? break the generalization of 
 \begin_inset Formula $\Upsilon_{\theta}(x)$
 \end_inset
 
-.
+?
 \end_layout
 
 \begin_layout Standard
