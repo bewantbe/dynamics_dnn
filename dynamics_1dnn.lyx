@@ -1361,7 +1361,7 @@ The hessian of loss function is
 Define
 \begin_inset Formula 
 \begin{equation}
-H_{L(\theta)}(x)\triangleq\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right].
+H_{L(\theta)}\triangleq\int_{\Omega}\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta}\right]\rho(x)\,\mathrm{d}x.
 \end{equation}
 
 \end_inset
@@ -1383,7 +1383,7 @@ When the
  The hessian become
 \begin_inset Formula 
 \begin{equation}
-\nabla_{\theta}\otimes\nabla_{\theta}L(\theta^{*})=\bar{H}_{L(\theta^{*})}\triangleq\int_{\Omega}H_{L(\theta^{*})}(x)\rho(x)\,\mathrm{d}x.
+\nabla_{\theta}\otimes\nabla_{\theta}L(\theta^{*})=H_{L(\theta^{*})}.
 \end{equation}
 
 \end_inset
@@ -1392,7 +1392,7 @@ When the
 \end_layout
 
 \begin_layout Standard
-Specifically
+When writting in terms of GFS,
 \begin_inset Formula 
 \[
 \frac{\mathrm{d}^{2}L(\theta)}{\mathrm{d}\theta_{i}\mathrm{d}\theta_{j}}=\left\langle \frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{i}},\frac{\partial\Upsilon_{\theta}(x)}{\partial\theta_{j}}\right\rangle _{\rho}=\sum_{k=0}^{\infty}\frac{\partial c_{k}(\theta)}{\partial\theta_{i}}\cdot\frac{\partial c_{k}(\theta)}{\partial\theta_{j}},
@@ -1400,10 +1400,10 @@ Specifically
 
 \end_inset
 
-so
+we have
 \begin_inset Formula 
 \begin{equation}
-\nabla_{\theta}\otimes\nabla_{\theta}L(\theta^{*})=\bar{H}_{L(\theta^{*})}=\left[\frac{\partial c_{k}(\theta^{*})}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}^{T}\left[\frac{\partial c_{k}(\theta^{*})}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}.\label{eq:loss-optimal-H}
+H_{L(\theta)}=\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}^{T}\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}.\label{eq:loss-optimal-H}
 \end{equation}
 
 \end_inset
@@ -1413,7 +1413,7 @@ so
 
 \begin_layout Standard
 The matrix 
-\begin_inset Formula $\bar{H}_{L(\theta)}$
+\begin_inset Formula $H_{L(\theta)}$
 \end_inset
 
  and 
@@ -1427,10 +1427,20 @@ reference "eq:H-evolve-matrix"
 
 \end_inset
 
-) has exactly the same eigenvalues.
+) are differed only by the multiplication order of the transposed matrix,
+ therefore they have exactly the same eigenvalues.
+ For simplicity, define 
+\begin_inset Formula $\lambda_{k}=0$
+\end_inset
+
+ when 
+\begin_inset Formula $k$
+\end_inset
+
+ exceed corresponding matrix dimension.
 \begin_inset Formula 
 \begin{equation}
-\lambda_{k}(\bar{H}_{L(\theta^{*})})=\lambda_{k}(H_{c(\theta)})\quad(\forall k\in\mathbb{N})\label{eq:eigval-HL-H}
+\lambda_{k}(H_{L(\theta)})=\lambda_{k}(H_{c(\theta)})\quad(\forall k\in\mathbb{N})\label{eq:eigval-HL-H}
 \end{equation}
 
 \end_inset
@@ -1447,7 +1457,7 @@ reference "subsec:Graded-Matrix"
 
 \end_inset
 
- we know that the landscape of Loss is extremely flat due to the vast near
+ we know that the landscape of loss is extremely flat due to the vast near
  zero eigenvalues as shown in Eq.
 \begin_inset CommandInset ref
 LatexCommand eqref
@@ -1467,13 +1477,13 @@ reference "eq:H-eigval-decay"
 
 \begin_layout Standard
 For the empirical hessian 
-\begin_inset Formula $\bar{H}_{\tilde{L}(\theta)}\triangleq\nabla_{\theta}\otimes\nabla_{\theta}\tilde{L}_{J}(\theta)$
+\begin_inset Formula $\tilde{H}_{L(\theta)}\triangleq\nabla_{\theta}\otimes\nabla_{\theta}\tilde{L}_{J}(\theta)$
 \end_inset
 
 
 \begin_inset Formula 
 \[
-\bar{H}_{\tilde{L}(\theta)}=\frac{1}{J}\sum_{j=1}^{J}\left(\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]+(\Upsilon_{\theta}(x_{j})-y(x_{j}))\nabla_{\theta}\otimes\nabla_{\theta}\Upsilon_{\theta}(x_{j})\right).
+\tilde{H}_{L(\theta)}=\frac{1}{J}\sum_{j=1}^{J}\left(\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]+(\Upsilon_{\theta}(x_{j})-y(x_{j}))\nabla_{\theta}\otimes\nabla_{\theta}\Upsilon_{\theta}(x_{j})\right).
 \]
 
 \end_inset
@@ -1485,7 +1495,7 @@ For the empirical hessian
 Due to the Weyl's inequality, we have
 \begin_inset Formula 
 \begin{equation}
-\lambda_{k}(\bar{H}_{L(\theta)})+\lambda_{\textrm{min}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})\leq\lambda_{k}(\bar{H}_{\tilde{L}(\theta)})\leq\lambda_{k}(\bar{H}_{L(\theta)})+\lambda_{\textrm{max}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})
+\lambda_{k}(H_{L(\theta)})+\lambda_{\textrm{min}}(\tilde{H}_{L(\theta)}-H_{L(\theta)})\leq\lambda_{k}(\tilde{H}_{L(\theta)})\leq\lambda_{k}(H_{L(\theta)})+\lambda_{\textrm{max}}(\tilde{H}_{L(\theta)}-H_{L(\theta)})
 \end{equation}
 
 \end_inset
@@ -1497,7 +1507,7 @@ Due to the Weyl's inequality, we have
 We have
 \begin_inset Formula 
 \[
-\lambda_{\textrm{max}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})\leq\left\Vert \bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)}\right\Vert _{F}\leq\frac{C}{\sqrt{J}}\left(3L\right)^{2}
+\lambda_{\textrm{max}}(\tilde{H}_{L(\theta)}-H_{L(\theta)})\leq\left\Vert \tilde{H}_{L(\theta)}-H_{L(\theta)}\right\Vert _{F}\leq\frac{C}{\sqrt{J}}\left(3L\right)^{2}
 \]
 
 \end_inset
@@ -1513,7 +1523,7 @@ Assume, error of the sample covariance? Gupta and Nagar, Matrix Variate
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\lambda_{\textrm{max}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})\leq
+\lambda_{\textrm{max}}(\tilde{H}_{L(\theta)}-H_{L(\theta)})\leq
 \]
 
 \end_inset
@@ -1521,7 +1531,7 @@ Assume, error of the sample covariance? Gupta and Nagar, Matrix Variate
 
 \begin_inset Formula 
 \[
-\mathbb{E}\left(\left\Vert \bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)}\right\Vert _{F}^{2}\right)=\frac{1}{J}\left(\mathrm{tr}(\bar{H}_{L(\theta)}^{2})+\mathrm{tr^{2}}(\bar{H}_{L(\theta)})\right)
+\mathbb{E}\left(\left\Vert \tilde{H}_{L(\theta)}-H_{L(\theta)}\right\Vert _{F}^{2}\right)=\frac{1}{J}\left(\mathrm{tr}(H_{L(\theta)}^{2})+\mathrm{tr^{2}}(H_{L(\theta)})\right)
 \]
 
 \end_inset
@@ -1529,7 +1539,7 @@ Assume, error of the sample covariance? Gupta and Nagar, Matrix Variate
 
 \begin_inset Formula 
 \[
-\left\Vert \bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)}\right\Vert _{F}\sim\frac{1}{\sqrt{J}}\sqrt{\mathrm{tr}(\bar{H}_{L(\theta)}^{2})+\mathrm{tr^{2}}(\bar{H}_{L(\theta)})}
+\left\Vert \tilde{H}_{L(\theta)}-H_{L(\theta)}\right\Vert _{F}\sim\frac{1}{\sqrt{J}}\sqrt{\mathrm{tr}(H_{L(\theta)}^{2})+\mathrm{tr^{2}}(H_{L(\theta)})}
 \]
 
 \end_inset
@@ -1549,12 +1559,104 @@ Effective Dimension of Base Function
 Define
 \begin_inset Formula 
 \[
-H_{\sigma}=\left[\sigma(w_{l}x+b_{l})\right]_{l}\left[\sigma(w_{l}x+b_{l})\right]_{l}^{T}.
+H_{\Upsilon}=\int_{\Omega}\left[\sigma(w_{l}x+b_{l})\right]_{l=1\cdots L}\left[\sigma(w_{l}x+b_{l})\right]_{l=1\cdots L}^{T}\rho(x)\,\mathrm{d}x,
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\tilde{H}_{\Upsilon}=\sum_{j=1}^{J}\left[\sigma(w_{l}x_{j}+b_{l})\right]_{l=1\cdots L}\left[\sigma(w_{l}x_{j}+b_{l})\right]_{l=1\cdots L}^{T}.
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+It is clear that 
+\begin_inset Formula $H_{\Upsilon}$
+\end_inset
+
+ has the same eigenvalue decaying property as 
+\begin_inset Formula $H_{c(\theta)}$
+\end_inset
+
+ or 
+\begin_inset Formula $H_{L(\theta)}$
+\end_inset
+
+.
+ And 
+\begin_inset Formula $\tilde{H}_{\Upsilon}$
+\end_inset
+
+....
+ Idealy, the parameters 
+\begin_inset Formula $\left[a_{l}\right]_{l=1\cdots L}$
+\end_inset
+
+ can be solved through
+\begin_inset Formula 
+\[
+\begin{bmatrix}\sigma(w_{1}x_{1}+b_{1}) & \sigma(w_{2}x_{1}+b_{2}) & \cdots & \sigma(w_{L}x_{1}+b_{L})\\
+\sigma(w_{1}x_{2}+b_{1}) & \sigma(w_{2}x_{2}+b_{2}) & \cdots & \sigma(w_{L}x_{2}+b_{L})\\
+\vdots &  &  & \vdots\\
+\sigma(w_{1}x_{J}+b_{1}) & \sigma(w_{2}x_{J}+b_{2}) & \cdots & \sigma(w_{L}x_{J}+b_{L})
+\end{bmatrix}\begin{bmatrix}a_{1}\\
+a_{2}\\
+\vdots\\
+a_{L}
+\end{bmatrix}=\begin{bmatrix}y(x_{1})\\
+y(x_{2})\\
+\vdots\\
+y(x_{J})
+\end{bmatrix}
+\]
+
+\end_inset
+
+by its normal equation
+\begin_inset Formula 
+\[
+\tilde{H}_{\Upsilon}\begin{bmatrix}a_{1}\\
+a_{2}\\
+\vdots\\
+a_{L}
+\end{bmatrix}=\sum_{j=1}^{J}\left[\sigma(w_{l}x_{j}+b_{l})\right]_{l=1\cdots L}y(x_{j})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, due to the analysis above 
+\begin_inset Formula $\tilde{H}_{\Upsilon}$
+\end_inset
+
+ is numerically not full rank.
+ To overcome this diffculty, one possibility is to desigin 
+\begin_inset Formula $w_{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $b_{l}$
+\end_inset
+
+ so that 
+\begin_inset Formula $\tilde{H}_{\Upsilon}$
+\end_inset
+
+ is reasonable full rank.
+ But this could?? break the generarization of 
+\begin_inset Formula $\Upsilon_{\theta}(x)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
