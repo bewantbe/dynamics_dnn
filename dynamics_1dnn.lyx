@@ -806,7 +806,7 @@ With substitution
 
 \begin_inset Formula 
 \begin{equation}
-H=\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}^{T},\label{eq:A-evolve-matrix}
+H=H_{c(\theta)}\triangleq\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}\left[\frac{\partial c_{k}(\theta)}{\partial\theta}\right]_{k\in\mathbb{N}_{0}}^{T},\label{eq:H-evolve-matrix}
 \end{equation}
 
 \end_inset
@@ -844,12 +844,12 @@ reference "eq:coef-dym"
 \end_inset
 
 , despite 
-\begin_inset Formula $H$
+\begin_inset Formula $H_{c(\theta)}$
 \end_inset
 
  is now time dependent.
  Now we turn to the analysis of matrix 
-\begin_inset Formula $H$
+\begin_inset Formula $H_{c(\theta)}$
 \end_inset
 
 .
@@ -931,7 +931,7 @@ Matrix
  of Eq.
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "eq:A-evolve-matrix"
+reference "eq:H-evolve-matrix"
 
 \end_inset
 
@@ -1207,7 +1207,7 @@ reference "eq:c-decay-power"
  Thus the matrix Eq.
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "eq:A-evolve-matrix"
+reference "eq:H-evolve-matrix"
 
 \end_inset
 
@@ -1285,7 +1285,7 @@ reference "eq:grad-decompose"
 , due to Min-max theorem of eigenvalues, we have
 \begin_inset Formula 
 \begin{equation}
-\lambda_{k}(H)\leq D_{kk}^{2}\lambda_{\textrm{max}}(B)\quad\forall k\in\mathbb{N}\label{eq:A-eigval-decay}
+\lambda_{k}(H)\leq D_{kk}^{2}\lambda_{\textrm{max}}(B)\quad\forall k\in\mathbb{N}\label{eq:H-eigval-decay}
 \end{equation}
 
 \end_inset
@@ -1319,6 +1319,10 @@ And if
 
 \begin_layout Standard
 TODO: add pictures.
+\end_layout
+
+\begin_layout Standard
+TODO: also use Schur–Horn theorem
 \end_layout
 
 \begin_layout Section
@@ -1413,11 +1417,29 @@ The matrix
 \end_inset
 
  and 
-\begin_inset Formula $H$
+\begin_inset Formula $H_{c(\theta)}$
 \end_inset
 
- has exactly the same eigenvalues.
- Thus from Sec.
+ (Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:H-evolve-matrix"
+
+\end_inset
+
+) has exactly the same eigenvalues.
+\begin_inset Formula 
+\begin{equation}
+\lambda_{k}(\bar{H}_{L(\theta^{*})})=\lambda_{k}(H_{c(\theta)})\quad(\forall k\in\mathbb{N})\label{eq:eigval-HL-H}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus from Sec.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1429,11 +1451,18 @@ reference "subsec:Graded-Matrix"
  zero eigenvalues as shown in Eq.
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "eq:A-eigval-decay"
+reference "eq:H-eigval-decay"
 
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1444,7 +1473,7 @@ For the empirical hessian
 
 \begin_inset Formula 
 \[
-\bar{H}_{\tilde{L}(\theta)}=\frac{1}{J}\sum_{j=1}^{J}\left(\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]+(\Upsilon_{\theta}(x_{j})-y(x_{j}))\nabla_{\theta}\otimes\nabla_{\theta}\Upsilon_{\theta}(x_{j})\right)
+\bar{H}_{\tilde{L}(\theta)}=\frac{1}{J}\sum_{j=1}^{J}\left(\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]^{T}\cdot\left[\frac{\partial\Upsilon_{\theta}(x_{j})}{\partial\theta}\right]+(\Upsilon_{\theta}(x_{j})-y(x_{j}))\nabla_{\theta}\otimes\nabla_{\theta}\Upsilon_{\theta}(x_{j})\right).
 \]
 
 \end_inset
@@ -1453,15 +1482,63 @@ For the empirical hessian
 \end_layout
 
 \begin_layout Standard
-When near optimal point
+Due to the Weyl's inequality, we have
+\begin_inset Formula 
+\begin{equation}
+\lambda_{k}(\bar{H}_{L(\theta)})+\lambda_{\textrm{min}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})\leq\lambda_{k}(\bar{H}_{\tilde{L}(\theta)})\leq\lambda_{k}(\bar{H}_{L(\theta)})+\lambda_{\textrm{max}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have
 \begin_inset Formula 
 \[
-\bar{H}_{\tilde{L}(\theta^{*})}=
+\lambda_{\textrm{max}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})\leq\left\Vert \bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)}\right\Vert _{F}\leq\frac{C}{\sqrt{J}}\left(3L\right)^{2}
+\]
+
+\end_inset
+
+-> Not so useful....
+\end_layout
+
+\begin_layout Standard
+Assume, error of the sample covariance? Gupta and Nagar, Matrix Variate
+ Distributions, 2000)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\lambda_{\textrm{max}}(\bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)})\leq
 \]
 
 \end_inset
 
 
+\begin_inset Formula 
+\[
+\mathbb{E}\left(\left\Vert \bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)}\right\Vert _{F}^{2}\right)=\frac{1}{J}\left(\mathrm{tr}(\bar{H}_{L(\theta)}^{2})+\mathrm{tr^{2}}(\bar{H}_{L(\theta)})\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\Vert \bar{H}_{\tilde{L}(\theta)}-\bar{H}_{L(\theta)}\right\Vert _{F}\sim\frac{1}{\sqrt{J}}\sqrt{\mathrm{tr}(\bar{H}_{L(\theta)}^{2})+\mathrm{tr^{2}}(\bar{H}_{L(\theta)})}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Still not a very tight bound.
 \end_layout
 
 \begin_layout Subsection
