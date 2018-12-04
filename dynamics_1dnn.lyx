@@ -1361,6 +1361,13 @@ If
 \end_inset
 
  are close to unit vector.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mathias_fast_1996"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1888,6 +1895,11 @@ However, due to the analysis above
 \end_inset
 
 ?
+\end_layout
+
+\begin_layout Standard
+The concept of effective dimension could be extended to higher dimensional
+ problem, and might be used as a tool to analyze multiple layer DNN.
 \end_layout
 
 \begin_layout Standard
