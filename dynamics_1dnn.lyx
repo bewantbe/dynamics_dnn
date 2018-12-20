@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -24,6 +24,8 @@ theorems-std
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -53,6 +55,7 @@ theorems-std
 \suppress_date true
 \justification true
 \use_refstyle 1
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -65,7 +68,10 @@ theorems-std
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -359,6 +365,7 @@ See Ref.
 \begin_inset CommandInset citation
 LatexCommand citep
 key "gottlieb_numerical_1977,trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -383,6 +390,7 @@ Theorem 7.1 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -450,6 +458,7 @@ Theorem 7.2 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -501,6 +510,7 @@ Theorem 8.1 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -586,6 +596,7 @@ Theorem 8.2 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1364,6 +1375,7 @@ If
 \begin_inset CommandInset citation
 LatexCommand cite
 key "mathias_fast_1996"
+literal "true"
 
 \end_inset
 
@@ -1898,8 +1910,361 @@ However, due to the analysis above
 \end_layout
 
 \begin_layout Standard
+The effective dimension represent the ability of 
+\begin_inset Formula $\Upsilon_{\theta}(x)$
+\end_inset
+
+ that expand the linear function space.
+\end_layout
+
+\begin_layout Standard
 The concept of effective dimension could be extended to higher dimensional
  problem, and might be used as a tool to analyze multiple layer DNN.
+\end_layout
+
+\begin_layout Section
+dd
+\end_layout
+
+\begin_layout Part*
+Appendix
+\end_layout
+
+\begin_layout Section
+Eigenvalues of Random Matrix
+\end_layout
+
+\begin_layout Subsection
+Homogeneous Case
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $A\in\mathbb{C}^{n\times n}$
+\end_inset
+
+ and its eigenvalues 
+\begin_inset Formula $\lambda_{i}\in\mathbb{C}$
+\end_inset
+
+, 
+\begin_inset Formula $i=1,\ldots,n$
+\end_inset
+
+, define the empirical spectral distribution (ESD) as
+\begin_inset Formula 
+\[
+\mu_{A}(x,y)\triangleq\frac{1}{n}\left|\{\mathrm{Re}\lambda_{i}\leq x,\mathrm{Im}\lambda_{i}\leq y,1\leq i\leq n\}\right|.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Eigenvalues of 
+\begin_inset Formula $A_{n}$
+\end_inset
+
+ should be of size about 
+\begin_inset Formula $O(\sqrt{n})$
+\end_inset
+
+, Thus the normalization by 
+\begin_inset Formula $\frac{1}{\sqrt{n}}$
+\end_inset
+
+is natural.
+ i.e.
+ 
+\begin_inset Formula $\mu_{A_{n}/\sqrt{n}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Some notes on classical random matrix:
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+name "Statistics 386: Probability in many dimensions Winter 2013, Steve Lalley"
+target "http://galton.uchicago.edu/~lalley/Courses/386/index.html"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Gaussian ensembles
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset href
+LatexCommand href
+name "Random_matrix in wikipedia"
+target "https://en.wikipedia.org/wiki/Random_matrix"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Gaussian unitary ensemble: For Hermitian matrix 
+\begin_inset Formula $H\in\mathbb{C}^{n\times n},\ H=H^{*}$
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+C or R? What is H^2?
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\rho(H)=\frac{1}{Z_{\mathrm{GUE}(n)}}e^{-\frac{n}{2}\mathrm{tr}H^{2}},\quad Z_{\mathrm{GUE}(n)}=2^{n/2}\pi^{n^{2}/2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Gaussian orthogonal ensemble: For Hermitian matrix 
+\begin_inset Formula $H\in\mathbb{R}^{n\times n},\ H=H^{T}$
+\end_inset
+
+.
+\begin_inset Formula 
+\[
+\rho(H)=\frac{1}{Z_{\mathrm{GOE}(n)}}e^{-\frac{n}{4}\mathrm{tr}H^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The joint probability density for the eigenvalues 
+\begin_inset Formula $\lambda_{1},\ldots,\lambda_{n}$
+\end_inset
+
+ of GUE/GOE is
+\begin_inset Formula 
+\[
+\frac{1}{Z_{\beta,n}}\prod_{k=1}^{n}e^{-\frac{\beta n}{4}\lambda_{k}^{2}}\prod_{i<j}\left|\lambda_{j}-\lambda_{i}\right|^{\beta}
+\]
+
+\end_inset
+
+where (Dyson index) 
+\begin_inset Formula $\beta=1$
+\end_inset
+
+ for GOE, 
+\begin_inset Formula $\beta=2$
+\end_inset
+
+ for GUE.
+\end_layout
+
+\begin_layout Standard
+For the distribution of the largest eigenvalue for GOE, GUE and Wishart
+ matrices of finite dimensions, see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "chiani_distribution_2014"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Spectral theory of random matrices
+\end_layout
+
+\begin_layout Standard
+Wigner's semicircle law (See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "pastur_spectrum_1972"
+literal "false"
+
+\end_inset
+
+): For 
+\begin_inset Formula $H\in\mathbb{C}^{n\times n},\ H=H^{*}$
+\end_inset
+
+, i.i.d.
+ Gaussian random (can be generalized to non-Gaussian, only requires mean
+ 
+\begin_inset Formula $0$
+\end_inset
+
+ and variance 1).
+ the density is given by
+\begin_inset Formula 
+\[
+\mu_{H/\sqrt{n}}\rightarrow\rho(x)=\begin{cases}
+\frac{1}{2\pi}\sqrt{4-x^{2}} & \left|x\right|\leq2\\
+0 & \left|x\right|>2
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The circular law (See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tao_random_2010,dyson_statistical_1962"
+literal "false"
+
+\end_inset
+
+): For 
+\begin_inset Formula $A_{n}=\left[a_{ij}\right]_{i,j=1}^{n}$
+\end_inset
+
+, 
+\begin_inset Formula $a_{ij}-\mathbb{E}(a_{ij})$
+\end_inset
+
+ are i.i.d.
+ copies of a fixed random variable 
+\begin_inset Formula $x$
+\end_inset
+
+ with unit variance.
+\end_layout
+
+\begin_layout Standard
+Then 
+\begin_inset Formula $\mu_{A_{n}/\sqrt{n}}$
+\end_inset
+
+ converges to the uniform measure on the unit disc when the 
+\begin_inset Formula $a_{ij}$
+\end_inset
+
+ have zero mean.
+\end_layout
+
+\begin_layout Standard
+For non-zero mean, see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tao_random_2010"
+literal "false"
+
+\end_inset
+
+ Remark 1.11.
+ The support of 
+\begin_inset Formula $\mu_{A_{n}/\sqrt{n}}$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+\left\{ z\in\mathbb{C}|\int\left|z-x\right|^{-2}\mathrm{d}\mu_{\mathbb{E}(A_{n})}(x)\geq1\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wigner surmise: probability distribution of the spaces between points in
+ the spectra
+\begin_inset Formula 
+\[
+\rho(s)=\frac{\pi s}{2}e^{-\pi s^{2}/4},s=\frac{S}{D}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Wishart matrices
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $H=XX^{*}\in\mathbb{C}^{n\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $X\in\mathbb{C}^{n\times m}$
+\end_inset
+
+, 
+\begin_inset Formula $m\geq n$
+\end_inset
+
+.
+ 
+\begin_inset Formula $X$
+\end_inset
+
+ is random matrix with independent entries.
+\end_layout
+
+\begin_layout Standard
+Wishart: X: i.i.d.
+ Gaussian:
+\end_layout
+
+\begin_layout Standard
+Marchenko–Pastur distribution
+\end_layout
+
+\begin_layout Standard
+The eigenvectors
+\begin_inset CommandInset citation
+LatexCommand cite
+key "takemura_distribution_2005,bai_spectral_2010"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
 \end_layout
 
 \begin_layout Standard
