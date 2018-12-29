@@ -1922,8 +1922,160 @@ The concept of effective dimension could be extended to higher dimensional
  problem, and might be used as a tool to analyze multiple layer DNN.
 \end_layout
 
-\begin_layout Section
-dd
+\begin_layout Standard
+Relationship to Extreme learning machine.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "huang_extreme_2006"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Best possible approximation see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maiorov_best_1999"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\min_{a_{l}}\sum_{j}(\Upsilon_{a}(x_{j})-y(x_{j}))^{2}+\beta\sum_{l}a_{l}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sum_{l=1}^{L}a_{l}\sigma(w_{l}x+b_{l})=y(x)+\epsilon(x)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\min_{a_{l}}\int_{\Omega}\left|\epsilon(x)\right|^{2}\rho(x)\,\mathrm{d}x
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\int_{\Omega}\sigma(w_{k}x+b_{k})\sum_{l=1}^{L}a_{l}\sigma(w_{l}x+b_{l})\rho(x)\,\mathrm{d}x=\int_{\Omega}\sigma(w_{k}x+b_{k})y(x)\rho(x)\,\mathrm{d}x
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\sum_{l=1}^{L}a_{l}\left\langle \sigma(w_{k}x+b_{k}),\sigma(w_{l}x+b_{l})\right\rangle _{\rho}=\left\langle \sigma(w_{k}x+b_{k}),y(x)\right\rangle _{\rho}\quad k=1,\ldots,L
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H=\begin{bmatrix}\left\langle \sigma(w_{1}x+b_{1}),\sigma(w_{1}x+b_{1})\right\rangle _{\rho} & \cdots & \left\langle \sigma(w_{1}x+b_{1}),\sigma(w_{L}x+b_{L})\right\rangle _{\rho}\\
+\vdots & \ddots & \vdots\\
+\left\langle \sigma(w_{L}x+b_{L}),\sigma(w_{1}x+b_{1})\right\rangle _{\rho} & \cdots & \left\langle \sigma(w_{L}x+b_{L}),\sigma(w_{L}x+b_{L})\right\rangle _{\rho}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vec{g}=\begin{bmatrix}\left\langle \sigma(w_{1}x+b_{1}),y(x)\right\rangle _{\rho} & \cdots & \left\langle \sigma(w_{L}x+b_{L}),y(x)\right\rangle _{\rho}\end{bmatrix}^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+H\vec{a}=\vec{g}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{bmatrix}\sigma(w_{1}x+b_{1}) & \cdots & \sigma(w_{L}x+b_{L})\end{bmatrix}=\sum_{k=1}^{L}u_{k}(x)\sigma_{k}v_{k}^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left|c_{k}\right|\leq2M\rho^{-k},\quad k\geq1.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f(x)=\sigma(w_{l}x+b_{l})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{bmatrix}\sigma(w_{1}x+b_{1}) & \cdots & \sigma(w_{L}x+b_{L})\end{bmatrix}=\sum_{k=1}^{\infty}p_{k}(x)\begin{bmatrix}c_{1,k} & \cdots & c_{L,k}\end{bmatrix}=\begin{bmatrix}p_{0}(x) & p_{1}(x) & \cdots\end{bmatrix}C
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Part*
@@ -2253,6 +2405,22 @@ literal "false"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Relation to modern statistical machine learning
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "liao_spectrum_2018"
+literal "true"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
