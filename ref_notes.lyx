@@ -199,7 +199,7 @@ X_{0}u_{0}=\lambda_{0}u_{0}
 \begin_inset Formula $\lambda_{0}$
 \end_inset
 
- be simple eigenvalue, then
+ be a simple eigenvalue, then
 \begin_inset Formula 
 \[
 Xu=\lambda u,\quad u^{T}u=1,\quad X\in N(X_{0})
