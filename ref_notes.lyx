@@ -175,7 +175,7 @@ Derivative of an eigenvalue
  means Moore-Penrose inverse.
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsection
 Real symmatric case
 \end_layout
 
@@ -226,8 +226,28 @@ Xu=\lambda u,\quad u^{T}u=1,\quad X\in N(X_{0})
 
 \end_layout
 
-\begin_layout Paragraph
+\begin_layout Subsection
 General case
+\end_layout
+
+\begin_layout Subsubsection
+Normalization 
+\begin_inset Formula $u_{0}^{*}u=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "magnus_differentiating_1985"
+literal "true"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -288,6 +308,209 @@ where
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsubsection
+Normalization diagC=0
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "giles_extended_nodate"
+literal "true"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assume: 
+\begin_inset Formula $A\in\mathbb{C}^{n\times n}$
+\end_inset
+
+?, 
+\begin_inset Formula $\lambda_{i}\neq\lambda_{j}\ \forall i\neq j$
+\end_inset
+
+.
+ 
+\begin_inset Formula $AU=U\Lambda$
+\end_inset
+
+.
+\begin_inset Formula 
+\[
+\mathrm{d}\Lambda=I\circ\left(U^{-1}\mathrm{d}A\,U\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Normalization: 
+\begin_inset Formula $\mathrm{diag}\left(U^{-1}\mathrm{d}U\right)=0$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\mathrm{d}U=U\left(F\circ\left(U^{-1}\mathrm{d}A\,U\right)\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $F_{ij}=(\lambda_{j}-\lambda_{i})^{-1}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\neq j$
+\end_inset
+
+, and zero otherwise.
+\end_layout
+
+\begin_layout Section
+Derivative of SVD
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "giles_extended_nodate"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Assume 
+\begin_inset Formula $A\in\mathbb{R}^{m\times n}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+A=USV^{T},
+\]
+
+\end_inset
+
+then
+\begin_inset Formula 
+\[
+\mathrm{d}S=I\circ\left(U^{T}\mathrm{d}A\,V\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assume 
+\begin_inset Formula $m\leq n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Defined 
+\begin_inset Formula $\mathrm{d}C=U^{-1}\mathrm{d}U$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{d}D=V^{-1}\mathrm{d}V$
+\end_inset
+
+ (note 
+\begin_inset Formula $\mathrm{d}C$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathrm{d}D$
+\end_inset
+
+ are anti-symmetric), and partition
+\begin_inset Formula 
+\[
+S=\begin{bmatrix}S_{1} & 0\end{bmatrix},\quad\mathrm{d}S=\begin{bmatrix}\mathrm{d}S_{1} & 0\end{bmatrix},\quad\mathrm{d}D=\begin{bmatrix}\mathrm{d}D_{1} & -\mathrm{d}D_{2}\\
+\mathrm{d}D_{2}^{T} & \mathrm{d}D_{3}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+U^{T}\mathrm{d}A\,V=\begin{bmatrix}\mathrm{d}P_{1} & \mathrm{d}P_{2}\end{bmatrix}
+\]
+
+\end_inset
+
+then
+\begin_inset Formula 
+\[
+\mathrm{d}D_{2}=S_{1}^{-1}\mathrm{d}P_{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}C=F\circ\left(\mathrm{d}P_{1}S_{1}+S_{1}\mathrm{d}P_{1}^{T}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}D_{1}=F\circ\left(S_{1}\mathrm{d}P_{1}+\mathrm{d}P_{1}^{T}S_{1}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $F_{ij}=\left(s_{j}^{2}-s_{i}^{2}\right)^{-1}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\neq j$
+\end_inset
+
+ and zero otherwise.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "ref_notes"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
