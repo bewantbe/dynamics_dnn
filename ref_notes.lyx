@@ -546,14 +546,26 @@ where
 \end_inset
 
  and zero otherwise.
-\end_layout
+\begin_inset Formula 
+\[
+\mathrm{d}U=U\left(F\circ\left(\mathrm{d}P_{1}\,S_{1}+S_{1}\mathrm{d}P_{1}^{T}\right)\right)
+\]
 
-\begin_layout Standard
-.
-\end_layout
+\end_inset
 
-\begin_layout Standard
-.
+
+\begin_inset Formula 
+\[
+\begin{bmatrix}\mathrm{d}V_{1}\\
+\mathrm{d}V_{2}
+\end{bmatrix}=V\begin{bmatrix}\mathrm{d}D_{1}\\
+\mathrm{d}D_{2}^{T}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
