@@ -175,6 +175,25 @@ Derivative of an eigenvalue
  means Moore-Penrose inverse.
 \end_layout
 
+\begin_layout Standard
+TODO:
+\end_layout
+
+\begin_layout Standard
+1.
+ Relation of these two expressions?
+\end_layout
+
+\begin_layout Standard
+2.
+ SVD when has non-simple roots?
+\end_layout
+
+\begin_layout Standard
+3.
+ Derivative of normalization operation?
+\end_layout
+
 \begin_layout Subsection
 Real symmatric case
 \end_layout
@@ -284,9 +303,9 @@ Zu=\lambda u,\quad u_{0}^{*}u=1,\quad Z\in N(Z_{0})
 
 
 \begin_inset Formula 
-\[
-\mathrm{d}u=(\lambda_{0}I-Z_{0})^{+}\left(I-\frac{u_{0}v_{0}^{*}}{v_{0}^{*}u_{0}}\right)(\mathrm{d}Z)u_{0}
-\]
+\begin{equation}
+\mathrm{d}u=(\lambda_{0}I-Z_{0})^{+}\left(I-\frac{u_{0}v_{0}^{*}}{v_{0}^{*}u_{0}}\right)(\mathrm{d}Z)u_{0}\label{eq:dgemm-uu1-du}
+\end{equation}
 
 \end_inset
 
@@ -358,9 +377,9 @@ Normalization:
 
 :
 \begin_inset Formula 
-\[
-\mathrm{d}U=U\left(F\circ\left(U^{-1}\mathrm{d}A\,U\right)\right)
-\]
+\begin{equation}
+\mathrm{d}U=U\left(F\circ\left(U^{-1}\mathrm{d}A\,U\right)\right)\label{eq:dgemm-C0-du}
+\end{equation}
 
 \end_inset
 
@@ -373,6 +392,42 @@ where
 \end_inset
 
 , and zero otherwise.
+\end_layout
+
+\begin_layout Standard
+In general, Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dgemm-uu1-du"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is different from Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dgemm-C0-du"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dgemm-C0-du"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ seems has problem with complex conjugate roots, also it needs extra normalizati
+on step to get accurate result.
 \end_layout
 
 \begin_layout Section
