@@ -426,8 +426,9 @@ noprefix "false"
 
 \end_inset
 
- seems has problem with complex conjugate roots, also it needs extra normalizati
-on step to get accurate result.
+ seems has problem with complex conjugate roots.
+ The authur only verified real eigenvalue cases.
+ Also it needs extra normalization step to get accurate result.
 \end_layout
 
 \begin_layout Section
@@ -561,6 +562,54 @@ where
 \end{bmatrix}=V\begin{bmatrix}\mathrm{d}D_{1}\\
 \mathrm{d}D_{2}^{T}
 \end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Derivative of Cholesky decomposition
+\end_layout
+
+\begin_layout Standard
+Suppose 
+\begin_inset Formula $\Sigma=\Sigma^{T}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+LL^{T}=\Sigma
+\]
+
+\end_inset
+
+with perturbation 
+\begin_inset Formula $\mathrm{d}\Sigma=\mathrm{d}\Sigma^{T}$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+\mathrm{d}L=L\,\Phi(L^{-1}\mathrm{d}\Sigma\left(L^{-1}\right)^{T})
+\]
+
+\end_inset
+
+where the 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ operator extract the lower-triangular part of a matrix and halves its diagonal:
+\begin_inset Formula 
+\[
+\Phi_{ij}(A)=\begin{cases}
+A_{ij} & i>j\\
+\frac{1}{2}A_{ii} & i=j\\
+0 & i<j
+\end{cases}
 \]
 
 \end_inset
