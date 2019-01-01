@@ -94,7 +94,7 @@ Let
 \begin_inset Formula $G=BD\in\mathbb{R}^{n\times n}$
 \end_inset
 
- be nonsingular and let 
+ be non-singular and let 
 \begin_inset Formula $\hat{G}=(B+\Delta B)D$
 \end_inset
 
@@ -181,7 +181,7 @@ TODO:
 
 \begin_layout Standard
 1.
- Relation of these two expressions?
+ Error bound estimation? Grönwall's inequality?
 \end_layout
 
 \begin_layout Standard
@@ -189,13 +189,8 @@ TODO:
  SVD when has non-simple roots?
 \end_layout
 
-\begin_layout Standard
-3.
- Derivative of normalization operation?
-\end_layout
-
 \begin_layout Subsection
-Real symmatric case
+Real symmetric case
 \end_layout
 
 \begin_layout Standard
@@ -237,12 +232,38 @@ Xu=\lambda u,\quad u^{T}u=1,\quad X\in N(X_{0})
 
 \begin_inset Formula 
 \[
-\mathrm{d}u=(\lambda_{0}I_{n}-X_{0})^{+}(\mathrm{d}X)u_{0}
+\mathrm{d}u=(\lambda_{0}I_{n}-X_{0})^{+}(\mathrm{d}X)u_{0}.
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Note that 
+\begin_inset Formula $X_{0}=U_{0}\Lambda_{0}U_{0}^{T}$
+\end_inset
+
+, so
+\begin_inset Formula 
+\[
+\mathrm{d}u=U_{0}\left(\lambda_{0}I_{n}-\Lambda_{0}\right)^{+}U_{0}^{T}(\mathrm{d}X)u_{0},
+\]
+
+\end_inset
+
+which is a specific column of Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dgemm-C0-du"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -362,7 +383,7 @@ Assume:
 .
 \begin_inset Formula 
 \[
-\mathrm{d}\Lambda=I\circ\left(U^{-1}\mathrm{d}A\,U\right)
+\mathrm{d}\Lambda=I\circ\left(U^{-1}\mathrm{d}A\,U\right).
 \]
 
 \end_inset
@@ -561,7 +582,7 @@ where
 \mathrm{d}V_{2}
 \end{bmatrix}=V\begin{bmatrix}\mathrm{d}D_{1}\\
 \mathrm{d}D_{2}^{T}
-\end{bmatrix}
+\end{bmatrix}.
 \]
 
 \end_inset
@@ -593,7 +614,7 @@ with perturbation
 , then
 \begin_inset Formula 
 \[
-\mathrm{d}L=L\,\Phi(L^{-1}\mathrm{d}\Sigma\left(L^{-1}\right)^{T})
+\mathrm{d}L=L\,\Phi(L^{-1}\mathrm{d}\Sigma\left(L^{-1}\right)^{T}),
 \]
 
 \end_inset
@@ -609,7 +630,59 @@ where the
 A_{ij} & i>j\\
 \frac{1}{2}A_{ii} & i=j\\
 0 & i<j
-\end{cases}
+\end{cases}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Derivative of normalize operator
+\end_layout
+
+\begin_layout Standard
+Suppose 
+\begin_inset Formula $x\in\mathbb{R}^{n\times1}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+y=\frac{x}{\left\Vert x\right\Vert },
+\]
+
+\end_inset
+
+then
+\begin_inset Formula 
+\[
+\mathrm{d}y=\left(I-\frac{xx^{T}}{\left\Vert x\right\Vert ^{2}}\right)\frac{\mathrm{d}x}{\left\Vert x\right\Vert }.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Grönwall's inequality
+\end_layout
+
+\begin_layout Standard
+If
+\begin_inset Formula 
+\[
+u'(t)\leq\beta(t)u(t),\quad\forall t\in(a,b)
+\]
+
+\end_inset
+
+then
+\begin_inset Formula 
+\[
+u(t)\leq u(a)\exp(\int_{a}^{t}\beta(s)\,\mathrm{d}s)
 \]
 
 \end_inset
