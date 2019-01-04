@@ -81,8 +81,50 @@
 
 \begin_body
 
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\diag}{\,\textrm{diag}}
+{\,\textrm{diag}}
+\end_inset
+
+
+\end_layout
+
 \begin_layout Title
 Note of Fast Accurate Eigenvalue Computations Using The Cholesky Factorization
+\end_layout
+
+\begin_layout Section
+LU
+\end_layout
+
+\begin_layout Standard
+See Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mathias_fast_1996"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assume 
+\begin_inset Formula $H=DAD$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+LL^{T}=H
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -136,7 +178,778 @@ G=L\tilde{D}^{-1}\tilde{D}
 
 \begin_inset Formula 
 \[
-\left\Vert L\tilde{D}^{-1}\right\Vert \leq\frac{\left\Vert \Delta\tilde{D}^{-1}\right\Vert }{\sigma_{n}(L\tilde{D}^{-1})}
+\left\Vert L\tilde{D}^{-1}\right\Vert \left|\frac{\sigma_{i}(L_{(1)})-\sigma_{i}(L)}{\sigma_{i}(L)}\right|\leq\frac{\left\Vert \Delta\tilde{D}^{-1}\right\Vert }{\sigma_{n}(L\tilde{D}^{-1})}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Stronger version
+\end_layout
+
+\begin_layout Standard
+For graded Assume 
+\begin_inset Formula $\sigma_{k-1}(L)\gg\sigma_{k}(L)\gg\sigma_{k+1}(L)$
+\end_inset
+
+, can we prove eigenvector is close to 
+\begin_inset Formula $\mathrm{id}$
+\end_inset
+
+?
+\end_layout
+
+\begin_layout Standard
+Or, if 
+\begin_inset Formula $\sigma_{k-j}(A)\gg\sigma_{k+l}(A)$
+\end_inset
+
+, 
+\begin_inset Formula $\forall j,l\geq1$
+\end_inset
+
+, can we prove the singular space is seperated?
+\end_layout
+
+\begin_layout Section
+Eigenvalue bounds
+\end_layout
+
+\begin_layout Subsection
+Additive perturbations
+\end_layout
+
+\begin_layout Subsubsection
+Bauer-Fike-type bounds for diagonalizable matrices.
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $A=X\Lambda X^{-1}$
+\end_inset
+
+(with eigenvalues 
+\begin_inset Formula $\left\{ \lambda_{i}\right\} $
+\end_inset
+
+), and perturbation 
+\begin_inset Formula $A+E$
+\end_inset
+
+ (with an eigenvalue 
+\begin_inset Formula $\hat{\lambda}$
+\end_inset
+
+), then:
+\begin_inset Formula 
+\begin{equation}
+\min_{i}\left|\lambda_{i}-\hat{\lambda}\right|\leq\kappa(X)\left\Vert E\right\Vert .
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\kappa(X)$
+\end_inset
+
+ is condition number of 
+\begin_inset Formula $X$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\kappa(X)=\left\Vert X\right\Vert \left\Vert X^{-1}\right\Vert 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For relative bound (Theorem 2.1 and 2.3 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) 
+\begin_inset Formula 
+\begin{equation}
+\min_{i}\frac{\left|\lambda_{i}-\hat{\lambda}\right|}{\left|\lambda_{i}\right|}\leq\kappa(X)\left\Vert A^{-1}E\right\Vert .
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\min_{i}\frac{\left|\lambda_{i}-\hat{\lambda}\right|}{\left|\lambda_{i}\right|}\leq\kappa(X)\left\Vert A_{1}^{-1}EA_{2}^{-1}\right\Vert .
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $A=A_{1}A_{2}=A_{2}A_{1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Whoffman-Wielandt theorem
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $A=X\Lambda X^{-1}$
+\end_inset
+
+(with eigenvalues 
+\begin_inset Formula $\left\{ \lambda_{i}\right\} $
+\end_inset
+
+), and perturbation 
+\begin_inset Formula $A+E=\hat{X}\hat{\Lambda}\hat{X}^{-1}$
+\end_inset
+
+ (with eigenvalues 
+\begin_inset Formula $\left\{ \hat{\lambda}\right\} $
+\end_inset
+
+), then:
+\begin_inset Formula 
+\[
+\sqrt{\sum_{i=1}^{n}\left|\lambda_{i}-\hat{\lambda}_{\tau(i)}\right|^{2}}\leq\kappa(\hat{X})\kappa(X)\left\Vert E\right\Vert _{F}
+\]
+
+\end_inset
+
+for some pertmutation 
+\begin_inset Formula $\tau$
+\end_inset
+
+.
+ And (Theorem 2.6 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) 
+\begin_inset Formula 
+\[
+\sqrt{\sum_{i=1}^{n}\left(\frac{\left|\lambda_{i}-\hat{\lambda}_{\tau(i)}\right|}{\left|\lambda_{i}\right|}\right)^{2}}\leq\kappa(\hat{X})\kappa(X)\left\Vert A^{-1}E\right\Vert _{F}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For Hermitian matrix and sort eigenvalues in descending order, then
+\begin_inset Formula 
+\[
+\sqrt{\sum_{i=1}^{n}\left|\lambda_{i}-\hat{\lambda}_{i}\right|^{2}}\leq\left\Vert E\right\Vert _{F}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Theorem 2.7 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) If, in addition, 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $A+E$
+\end_inset
+
+ are Hermitian positive-definite, then
+\begin_inset Formula 
+\begin{equation}
+\sqrt{\sum_{i=1}^{n}\frac{\left|\lambda_{i}-\hat{\lambda}_{\tau(i)}\right|^{2}}{\lambda_{i}\hat{\lambda}_{i}}}\leq\left\Vert A^{-1/2}EA^{-1/2}\left(I+A^{-1/2}EA^{-1/2}\right)^{-1/2}\right\Vert _{F}\label{eq:W-W-F}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Weyl-type bounds
+\end_layout
+
+\begin_layout Standard
+For Hermitian matrix 
+\begin_inset Formula $A$
+\end_inset
+
+ (with eigenvalues 
+\begin_inset Formula $\left\{ \lambda_{i}\right\} $
+\end_inset
+
+) and 
+\begin_inset Formula $A+E$
+\end_inset
+
+ (with eigenvalues 
+\begin_inset Formula $\left\{ \hat{\lambda}\right\} $
+\end_inset
+
+).
+\begin_inset Formula 
+\[
+\max_{i}\left|\lambda_{i}-\hat{\lambda}_{i}\right|\leq\left\Vert E\right\Vert .
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Theorem 2.8 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) If further, 
+\begin_inset Formula $A$
+\end_inset
+
+ is positive-definite, then
+\begin_inset Formula 
+\[
+\max_{i}\frac{\left|\lambda_{i}-\hat{\lambda}_{i}\right|}{\left|\lambda_{i}\right|}\leq\left\Vert A^{-1/2}EA^{-1/2}\right\Vert .
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Theorem 2.9 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) If further, 
+\begin_inset Formula $A+E$
+\end_inset
+
+ is also positive-definite, then
+\begin_inset Formula 
+\begin{equation}
+\max_{i}\frac{\left|\lambda_{i}-\hat{\lambda}_{i}\right|}{\sqrt{\lambda_{i}\hat{\lambda}_{i}}}\leq\left\Vert A^{-1/2}EA^{-1/2}\left(I+A^{-1/2}EA^{-1/2}\right)^{-1/2}\right\Vert .\label{eq:W-F}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Theorem 2.11 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $A+E$
+\end_inset
+
+ be Hermitian.
+ 
+\begin_inset Formula $H$
+\end_inset
+
+ is the positive-semidefinite polar factor of 
+\begin_inset Formula $A$
+\end_inset
+
+ and for some 
+\begin_inset Formula $0<\epsilon<1$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left|x^{*}Ex\right|\leq\epsilon x^{*}Hx\quad\forall x
+\]
+
+\end_inset
+
+then
+\begin_inset Formula 
+\[
+\left|\lambda_{i}-\hat{\lambda}_{i}\right|\leq\epsilon\left|\lambda_{i}\right|.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Corollary 2.13 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) For 
+\begin_inset Formula $A=D^{*}MD$
+\end_inset
+
+ Hermitian positive-definite and 
+\begin_inset Formula $A+E=D^{*}(M+F)D$
+\end_inset
+
+ Hermitian, 
+\begin_inset Formula $D$
+\end_inset
+
+ nonsingular, then
+\begin_inset Formula 
+\[
+\max_{i}\frac{\left|\lambda_{i}-\hat{\lambda}_{i}\right|}{\left|\lambda_{i}\right|}\leq\left\Vert M^{-1/2}FM^{-1/2}\right\Vert .
+\]
+
+\end_inset
+
+similarily, the Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:W-W-F"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and Eq.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:W-F"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+(Theorem 2.19 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $A=DMD$
+\end_inset
+
+ and 
+\begin_inset Formula $A+E=D(M+F)D$
+\end_inset
+
+ be real symmetric and 
+\begin_inset Formula $D$
+\end_inset
+
+ a real nonsingular diagonal matrix.
+ Among all eigenvalues of principal submatrices of 
+\begin_inset Formula $M$
+\end_inset
+
+, let 
+\begin_inset Formula $\mu$
+\end_inset
+
+ be the smallest in magnitude.
+ If 
+\begin_inset Formula $\left\Vert F\right\Vert <\left|\mu\right|$
+\end_inset
+
+ then
+\begin_inset Formula 
+\begin{equation}
+-\left\Vert F\right\Vert \frac{2\left|\mu\right|-\left\Vert F\right\Vert }{\left|\mu\right|^{2}}\leq\frac{\hat{\lambda}_{i}-\lambda_{i}}{\lambda_{i}}\leq\left\Vert F\right\Vert \frac{2\left|\mu\right|-\left\Vert F\right\Vert }{\left(\left|\mu\right|-\left\Vert F\right\Vert \right)^{2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Ritz values
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $A$
+\end_inset
+
+ be a Hermitian matrix of order 
+\begin_inset Formula $n$
+\end_inset
+
+ and 
+\begin_inset Formula $Q\in\mathbb{C}^{n\times m}$
+\end_inset
+
+, 
+\begin_inset Formula $Q^{*}Q=I$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $W=Q^{*}AQ\in\mathbb{C}^{m\times m}$
+\end_inset
+
+, whose eigenvalues 
+\begin_inset Formula $\left\{ \hat{\lambda}_{j}\right\} $
+\end_inset
+
+ are called Ritz values of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Define 
+\begin_inset Formula $R=AQ-QW$
+\end_inset
+
+, then one can always find 
+\begin_inset Formula $m$
+\end_inset
+
+ eigenvalues 
+\begin_inset Formula $\left\{ \lambda_{\tau(j)}\right\} $
+\end_inset
+
+ of 
+\begin_inset Formula $A$
+\end_inset
+
+, such that
+\begin_inset Formula 
+\begin{equation}
+\max_{j}\left|\lambda_{\tau(j)}-\hat{\lambda}_{j}\right|\leq\left\Vert R\right\Vert 
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Additive pertubations fo singular values
+\end_layout
+
+\begin_layout Standard
+Assume 
+\begin_inset Formula $B\in\mathbb{C}^{m\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $m\geq n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+(Theorem 3.2 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) If 
+\begin_inset Formula $\mathrm{range}(B+F)\subset\mathrm{range}(B)$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+\left|\sigma_{i}-\hat{\sigma}_{i}\right|\leq\sigma_{i}\left\Vert B^{+}F\right\Vert ,\quad1\leq i\leq n.
+\]
+
+\end_inset
+
+If 
+\begin_inset Formula $\mathrm{range}((B+F)^{*})\subset\mathrm{range}(B^{*})$
+\end_inset
+
+, (or weaker, Corollary 3.3, 
+\begin_inset Formula $B$
+\end_inset
+
+ is full column rank), then
+\begin_inset Formula 
+\[
+\left|\sigma_{i}-\hat{\sigma}_{i}\right|\leq\sigma_{i}\left\Vert FB^{+}\right\Vert ,\quad1\leq i\leq n.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Theorem 3.9 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ipsen_relative_1998"
+literal "false"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $B=D_{l}CD_{r}$
+\end_inset
+
+ and 
+\begin_inset Formula $B+F=D_{l}(C+G)D_{r}$
+\end_inset
+
+ be real symmetric, where 
+\begin_inset Formula $D_{l}$
+\end_inset
+
+ and 
+\begin_inset Formula $D_{r}$
+\end_inset
+
+ are real nonsingular diagonal matrices.
+ Among the singular values of all square submatrices of 
+\begin_inset Formula $B$
+\end_inset
+
+ (?? maybe typo here), let 
+\begin_inset Formula $\theta$
+\end_inset
+
+ be the smallest one.
+ If 
+\begin_inset Formula $\left\Vert G\right\Vert <\theta$
+\end_inset
+
+, then
+\begin_inset Formula 
+\begin{equation}
+-\left\Vert G\right\Vert \frac{2\theta-\left\Vert G\right\Vert }{\theta^{2}}\leq\frac{\hat{\sigma}_{i}-\sigma_{i}}{\sigma_{i}}\leq\left\Vert G\right\Vert \frac{2\theta-\left\Vert G\right\Vert }{\left(\theta-\left\Vert G\right\Vert \right)^{2}}\quad\forall i
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Graded Matrices perturbation
+\end_layout
+
+\begin_layout Standard
+(Theorem 5.4 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li_relative_1998"
+literal "false"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $A=S^{*}HS$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{A}=S^{*}\tilde{H}S$
+\end_inset
+
+ be two 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ nonnegative definite Hermitian matrices with eigenvalues ordered descendingly,
+ let 
+\begin_inset Formula $\Delta H=\tilde{H}-H$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\left\Vert H^{-1}\right\Vert \left\Vert \Delta H\right\Vert <1$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+\max_{i}\chi(\lambda_{i},\tilde{\lambda}_{i})\leq\frac{\left\Vert H^{-1}\right\Vert \left\Vert \Delta H\right\Vert }{\sqrt{1-\left\Vert H^{-1}\right\Vert \left\Vert \Delta H\right\Vert }}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\sqrt{\sum_{i=1}^{n}\left(\chi(\lambda_{i},\tilde{\lambda}_{i})\right)^{2}}\leq\frac{\left\Vert H^{-1}\right\Vert \left\Vert \Delta H\right\Vert _{F}}{\sqrt{1-\left\Vert H^{-1}\right\Vert \left\Vert \Delta H\right\Vert }}
+\]
+
+\end_inset
+
+where (also define 
+\begin_inset Formula $0/0=0$
+\end_inset
+
+)
+\begin_inset Formula 
+\[
+\chi(a,\tilde{a})=\frac{\left|a-\tilde{a}\right|}{\sqrt{a\tilde{a}}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Theorem 5.5 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li_relative_1998"
+literal "false"
+
+\end_inset
+
+) Let 
+\begin_inset Formula $B=GS$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{B}=\tilde{GS}$
+\end_inset
+
+ be two 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrices with singular values ordered descendingly, 
+\begin_inset Formula $G$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{G}$
+\end_inset
+
+ are nonsingular, let 
+\begin_inset Formula $\Delta G=\tilde{G}-G$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\left\Vert \Delta G\right\Vert \left\Vert G^{-1}\right\Vert <1$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+\max_{i}\chi(\sigma_{i},\tilde{\sigma}_{i})\leq\left(1+\frac{1}{1-\left\Vert G^{-1}\right\Vert \left\Vert \Delta G\right\Vert }\right)\frac{\left\Vert G^{-1}\right\Vert \left\Vert \Delta G\right\Vert }{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\sqrt{\sum_{i=1}^{n}\left(\chi(\sigma_{i},\tilde{\sigma}_{i})\right)^{2}}\leq\left(1+\frac{1}{1-\left\Vert G^{-1}\right\Vert \left\Vert \Delta G\right\Vert }\right)\frac{\left\Vert G^{-1}\right\Vert \left\Vert \Delta G\right\Vert _{F}}{2}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(Theorem 7.5 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li_relative_1998"
+literal "false"
+
+\end_inset
+
+) Under the conditions above, we have 
+\begin_inset Formula 
+\[
+\frac{\left|\tilde{\lambda}_{j}-\lambda_{j}\right|}{\lambda_{j}}\leq\left\Vert H^{-1}\right\Vert \left\Vert \Delta H\right\Vert \quad\forall j,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\left|\tilde{\sigma}_{j}-\sigma_{j}\right|}{\sigma_{j}}\leq\left\Vert G^{-1}\right\Vert \left\Vert \Delta G\right\Vert \quad\forall j.
 \]
 
 \end_inset
@@ -368,10 +1181,10 @@ literal "true"
 
 \begin_layout Standard
 Assume: 
-\begin_inset Formula $A\in\mathbb{C}^{n\times n}$
+\begin_inset Formula $A\in\mathbb{R}^{n\times n}$
 \end_inset
 
-?, 
+, 
 \begin_inset Formula $\lambda_{i}\neq\lambda_{j}\ \forall i\neq j$
 \end_inset
 
@@ -450,6 +1263,44 @@ noprefix "false"
  seems has problem with complex conjugate roots.
  The authur only verified real eigenvalue cases.
  Also it needs extra normalization step to get accurate result.
+\end_layout
+
+\begin_layout Standard
+The underlying difficulty is that 
+\begin_inset Formula $\left|z\right|$
+\end_inset
+
+ or more specifically 
+\begin_inset Formula $\bar{z}$
+\end_inset
+
+ is not an analytical function.
+ i.e.
+ not able to find a constant 
+\begin_inset Formula $C$
+\end_inset
+
+ (independent from 
+\begin_inset Formula $\mathrm{d}z$
+\end_inset
+
+) in 
+\begin_inset Formula $\mathrm{d}f=C\mathrm{d}z$
+\end_inset
+
+.
+ This pose a problem when derive the derivative of normalized vector.
+ See Sec.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Derivative-of-normalize"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for a potiential solution.
 \end_layout
 
 \begin_layout Section
@@ -590,6 +1441,311 @@ where
 
 \end_layout
 
+\begin_layout Standard
+Assume 
+\begin_inset Formula $m\geq n$
+\end_inset
+
+, 
+\begin_inset Formula $A=B^{T}$
+\end_inset
+
+, 
+\begin_inset Formula $B=U_{B}S_{B}V_{B}^{T}$
+\end_inset
+
+, (economical format, i.e.
+ 
+\begin_inset Formula $U_{B}\in\mathbb{R}^{m\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $S_{B}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{B}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+), then
+\begin_inset Formula 
+\[
+A=USV^{T}=B^{T}=V_{B}S_{B}U_{B}^{T}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+V_{B}=U,\quad U_{B}=V
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus, using orginal symbols, we have
+\begin_inset Formula 
+\[
+\mathrm{d}S=I\circ\left(U^{T}\mathrm{d}A\,V\right).
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{bmatrix}\mathrm{d}U_{1}\\
+\mathrm{d}U_{2}
+\end{bmatrix}=U\begin{bmatrix}\mathrm{d}C_{1}\\
+\mathrm{d}C_{2}^{T}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}D=F\circ\left(\mathrm{d}P_{1}^{T}S_{1}+S_{1}\mathrm{d}P_{1}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}C_{1}=F\circ\left(S_{1}\mathrm{d}P_{1}^{T}+\mathrm{d}P_{1}S_{1}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathrm{d}C_{2}=S_{1}^{-1}\mathrm{d}P_{2}^{T}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+U^{T}\mathrm{d}A\,V=\begin{bmatrix}\mathrm{d}P_{1}\\
+\mathrm{d}P_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+draft—————————————————–
+\end_layout
+
+\begin_layout Standard
+For economical format, 
+\begin_inset Formula $A\in\mathbb{R}^{m\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $U\in\mathbb{R}^{m\times p}$
+\end_inset
+
+, 
+\begin_inset Formula $S\in\mathbb{R}^{p\times p}$
+\end_inset
+
+, 
+\begin_inset Formula $V\in\mathbb{R}^{p\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $p=\min\{m,n\}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+A=USV^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Define 
+\begin_inset Formula $\mathrm{d}C=U^{T}\mathrm{d}U$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{d}D=V^{T}\mathrm{d}V$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathrm{d}C$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathrm{d}D$
+\end_inset
+
+ are anti-symmetric (
+\begin_inset Formula $\mathrm{d}C+\mathrm{d}C^{T}=0$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{d}D+\mathrm{d}D^{T}=0$
+\end_inset
+
+), and
+\begin_inset Formula 
+\[
+\mathrm{d}A=\mathrm{d}U\,SV^{T}+U\mathrm{d}S\,V^{T}+US\mathrm{d}V^{T}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+U^{T}\mathrm{d}A\,V=\mathrm{d}C\,S+\mathrm{d}S+S\mathrm{d}D^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then
+\begin_inset Formula 
+\[
+\mathrm{d}S=I\circ\left(U^{T}\mathrm{d}A\,V\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Define and solve
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathrm{d}P\triangleq U^{T}\mathrm{d}A\,V
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}P=\mathrm{d}C\,S+\mathrm{d}S-S\mathrm{d}D
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}P^{T}=-S\mathrm{d}C+\mathrm{d}S+\mathrm{d}D\,S
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}P\,S+S\mathrm{d}P^{T}=\mathrm{d}C\,S^{2}-S^{2}\mathrm{d}C+2\mathrm{d}S\,S
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+S\mathrm{d}P+\mathrm{d}P^{T}\,S=\mathrm{d}D\,S^{2}-S^{2}\mathrm{d}D+2\mathrm{d}S\,S
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Due to anti-symmetric
+\begin_inset Formula 
+\[
+\mathrm{d}C=F\circ\left(\mathrm{d}P\,S+S\mathrm{d}P^{T}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}D=F\circ\left(S\mathrm{d}P+\mathrm{d}P^{T}\,S\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+? how to get 
+\begin_inset Formula $\mathrm{d}U$
+\end_inset
+
+? What is 
+\begin_inset Formula $UU^{T}$
+\end_inset
+
+?
+\end_layout
+
+\begin_layout Standard
+Mathematical equivlant form, assume 
+\begin_inset Formula $AA^{T}$
+\end_inset
+
+ is rank defect, we still have
+\begin_inset Formula 
+\[
+US^{2}U^{T}=AA^{T}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then
+\begin_inset Formula 
+\[
+\mathrm{d}S^{2}=I\circ\left(U^{-1}\mathrm{d}(AA^{T})\,U\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Derivative of Cholesky decomposition
 \end_layout
@@ -640,6 +1796,13 @@ A_{ij} & i>j\\
 
 \begin_layout Section
 Derivative of normalize operator
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Derivative-of-normalize"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -666,6 +1829,83 @@ then
 
 \end_layout
 
+\begin_layout Standard
+For vector 
+\begin_inset Formula $z\in\mathbb{C}^{n\times1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A convention used in autograd (Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "maclaurin_efficiently_2019"
+literal "true"
+
+\end_inset
+
+):
+\begin_inset Formula 
+\[
+f(z)=u(\mathrm{Re}(z),\mathrm{Im}(z))+\mathrm{i}vu(\mathrm{Re}(z),\mathrm{Im}(z)),
+\]
+
+\end_inset
+
+the derivative is defined by
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}f(z)}{\mathrm{d}z}=\frac{\partial u}{\partial x}(\mathrm{Re}(z),\mathrm{Im}(z))-\mathrm{i}\frac{\partial u}{\partial y}(\mathrm{Re}(z),\mathrm{Im}(z)).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Under this definition
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}z}\frac{z}{\sqrt{z^{*}z}}=\frac{1}{\sqrt{z^{*}z}}-\frac{z}{2}\left(z^{*}z\right)^{-\frac{3}{2}}\frac{\mathrm{d}}{\mathrm{d}z}\left(z^{*}z\right)
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+u(x,y)=x^{2}+y^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}z}\left(z^{*}z\right)=2\mathrm{Re}(z^{T})-2\mathrm{i}\mathrm{Im}(z^{T})=2z^{*}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}z}\frac{z}{\sqrt{z^{*}z}}=\frac{1}{\left\Vert z\right\Vert }\left(I-\frac{zz^{*}}{\left\Vert z\right\Vert ^{2}}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Grönwall's inequality
 \end_layout
@@ -684,6 +1924,272 @@ then
 \[
 u(t)\leq u(a)\exp(\int_{a}^{t}\beta(s)\,\mathrm{d}s)
 \]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Taylor's theorem
+\end_layout
+
+\begin_layout Standard
+For Taylor series
+\begin_inset Formula 
+\[
+f(x)=\sum_{j=0}^{k}\frac{f^{(j)}(a)}{j!}(x-a)^{j}+R_{k}(x).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lagrange form of the remainder, 
+\begin_inset Formula $\exists\xi_{L}\in[a,x]$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+R_{k}(x)=\frac{f^{(k+1)}(\xi_{L})}{(k+1)!}(x-a)^{k+1}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cauchy form of the remainder, 
+\begin_inset Formula $\exists\xi_{C}\in[a,x]$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+R_{k}(x)=\frac{f^{(k+1)}(\xi_{C})}{k!}(x-\xi_{C})^{k}(x-a).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+General form: for 
+\begin_inset Formula $G\in C^{1}([a,x])$
+\end_inset
+
+, and 
+\begin_inset Formula $G'(t)\neq0,\forall t\in(a,x)$
+\end_inset
+
+, 
+\begin_inset Formula $\exists\xi\in[a,x]$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+R_{k}(x)=\frac{f^{(k+1)}(\xi)}{k!}(x-\xi)^{k}\frac{G(x)-G(a)}{G'(\xi)}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Integral form of the remainder: 
+\begin_inset Formula $f^{(k)}$
+\end_inset
+
+ be absolutely continuous on 
+\begin_inset Formula $[a,x]$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+R_{k}(x)=\int_{a}^{x}\frac{f^{(k+1)}(t)}{k!}(x-t)^{k}\mathrm{d}t.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Remainder in complex analysis:
+\begin_inset Formula 
+\[
+R_{k}(z)=\frac{(z-a)^{k+1}}{2\pi\mathrm{i}}\int_{\partial\Omega}\frac{f(s)\,\mathrm{d}s}{(s-a)^{k+1}(s-z)}
+\]
+
+\end_inset
+
+with bounds for 
+\begin_inset Formula $z\in\Omega=\{s\in\mathbb{C}|\left|s-a\right|\leq r\}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left|f^{(k)}(z)\right|\leq\frac{k!M_{r}}{r^{k}},\quad M_{r}=\max_{\left|s-a\right|=r}\left|f(s)\right|
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+R_{k}(z)\leq\frac{\beta^{k+1}M_{r}}{1-\beta},\quad\beta=\frac{\left|z-a\right|}{r}<1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Homotopy Transform
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $t\in[0,1]$
+\end_inset
+
+, 
+\begin_inset Formula $(1-t)A+(1-t)tC+tB$
+\end_inset
+
+, not work.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $(1-t)A+(1-t)tC(t)+tB$
+\end_inset
+
+ might work, but no bound for 
+\begin_inset Formula $C(t)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Dynamics of eigenvector
+\end_layout
+
+\begin_layout Standard
+It is
+\begin_inset Formula 
+\[
+\mathrm{d}\mathrm{diag}\Lambda=\mathrm{diag}\left(U^{-1}\mathrm{d}A\,U\right).
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{d}U=U\left(F\circ\left(U^{-1}\mathrm{d}A\,U\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Rude approximation asymptotic
+\end_layout
+
+\begin_layout Standard
+Due to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathrm{d}u=U_{0}\left(\lambda_{0}I_{n}-\Lambda_{0}\right)^{+}U_{0}^{T}(\mathrm{d}X)u_{0},
+\]
+
+\end_inset
+
+the graded matrix expansion
+\begin_inset Formula 
+\[
+\mathrm{d}u=\left(\lambda_{0}I_{n}-\Lambda_{0}\right)^{+}(A-\mathrm{diag}(A))u_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Or
+\begin_inset Formula 
+\[
+\mathrm{d}U=F\circ(A-\mathrm{diag}(A))
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $F_{ij}=(\lambda_{j}-\lambda_{i})^{-1}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\neq j$
+\end_inset
+
+, and zero otherwise.
+\end_layout
+
+\begin_layout Standard
+In the exponential cases
+\begin_inset Formula 
+\[
+\left|a_{kl}\right|\leq C_{0}\rho^{-k},\quad\forall k,l\geq0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left|K_{jk}\right|\leq C_{0}L\rho^{-j-k}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Approx
+\begin_inset Formula 
+\[
+(\lambda_{j}-\lambda_{i})^{-1}\sim\left(C_{0}L\right)^{-1}\left(\rho^{-2j}-\rho^{-2i}\right)^{-1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left(F\circ(A-\mathrm{diag}(A))\right)_{ij} & \sim\left(C_{0}L\right)^{-1}\left(\rho^{-2j}-\rho^{-2i}\right)^{-1}C_{0}L\rho^{-i-j}\\
+ & =\left(\rho^{-2j}-\rho^{-2i}\right)^{-1}\rho^{-i-j}\\
+ & =\begin{cases}
+\rho^{j-i} & j\ll i\\
+-\rho^{i-j} & i\ll j
+\end{cases}
+\end{align*}
 
 \end_inset
 
