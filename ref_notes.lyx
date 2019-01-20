@@ -957,6 +957,108 @@ literal "false"
 
 \end_layout
 
+\begin_layout Subsection
+Perturbation in eigenspace
+\end_layout
+
+\begin_layout Standard
+(Theorem 3.2 in Ref.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li_relative_1998"
+literal "false"
+
+\end_inset
+
+ (Davis-Kahan)) Let 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $\tilde{A}$
+\end_inset
+
+ be two Hermitian matrices.Assume there is an interval 
+\begin_inset Formula $\left[\alpha,\beta\right]$
+\end_inset
+
+ and a 
+\begin_inset Formula $\delta>0$
+\end_inset
+
+ such that the spectrum of 
+\begin_inset Formula $\Lambda_{1}$
+\end_inset
+
+ lies entirely in 
+\begin_inset Formula $\left[\alpha,\beta\right]$
+\end_inset
+
+ while that of 
+\begin_inset Formula $\tilde{\Lambda}_{2}$
+\end_inset
+
+ lies entirely outside of 
+\begin_inset Formula $\left[\alpha-\delta,\beta+\delta\right]$
+\end_inset
+
+ (or 
+\begin_inset Formula $\tilde{\Lambda}_{2}$
+\end_inset
+
+ in 
+\begin_inset Formula $\left[\alpha,\beta\right]$
+\end_inset
+
+, 
+\begin_inset Formula $\Lambda_{1}$
+\end_inset
+
+ outside 
+\begin_inset Formula $\left[\alpha-\delta,\beta+\delta\right]$
+\end_inset
+
+).
+ Then for any unitarily invariant norm 
+\begin_inset Formula $\left\Vert \cdot\right\Vert _{U}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\Vert \sin\Theta(U_{1},\tilde{U}_{1})\right\Vert _{U}\leq\frac{\left\Vert (\tilde{A}-A)U_{1}\right\Vert _{U}}{\delta}
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+A=U\Lambda U^{*}=\begin{bmatrix}U_{1} & U_{2}\end{bmatrix}\begin{bmatrix}\Lambda_{1}\\
+ & \Lambda_{2}
+\end{bmatrix}\begin{bmatrix}U_{1}^{*}\\
+U_{2}^{*}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\tilde{A}=\tilde{U}\tilde{\Lambda}\tilde{U}^{*}=\begin{bmatrix}\tilde{U}_{1} & \tilde{U}_{2}\end{bmatrix}\begin{bmatrix}\tilde{\Lambda}_{1}\\
+ & \tilde{\Lambda}_{2}
+\end{bmatrix}\begin{bmatrix}\tilde{U}_{1}^{*}\\
+\tilde{U}_{2}^{*}
+\end{bmatrix}.
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Derivative of eigenvalues and eigenvectors
 \end_layout
