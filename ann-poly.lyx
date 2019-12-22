@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -24,6 +24,8 @@ theorems-std
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -62,6 +64,7 @@ theorems-std
 \suppress_date true
 \justification true
 \use_refstyle 1
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -74,7 +77,10 @@ theorems-std
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -93,6 +99,10 @@ One-Layer ANN in Generalized Fourier Series Expansion
 
 \begin_layout Section
 Data Fitting Problem
+\end_layout
+
+\begin_layout Standard
+Test
 \end_layout
 
 \begin_layout Standard
@@ -259,6 +269,7 @@ Basis other than polynomials can be obtained from Sturm–Liouville problem,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "noauthor_sturmliouville_2018"
+literal "true"
 
 \end_inset
 
@@ -362,6 +373,7 @@ In the Hilbert space here, the completeness of basis is measured by convergence
 \begin_inset CommandInset citation
 LatexCommand citep
 key "weisstein_complete_nodate"
+literal "true"
 
 \end_inset
 
@@ -540,6 +552,7 @@ reference "lem:cheb-coef-analytical"
 \begin_inset CommandInset citation
 LatexCommand citep
 key "wang_convergence_2012"
+literal "true"
 
 \end_inset
 
@@ -1126,6 +1139,7 @@ See Ref.
 \begin_inset CommandInset citation
 LatexCommand citep
 key "gottlieb_numerical_1977,trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1150,6 +1164,7 @@ Theorem 7.1 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1217,6 +1232,7 @@ Theorem 7.2 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1268,6 +1284,7 @@ Theorem 8.1 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1353,6 +1370,7 @@ Theorem 8.2 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1408,6 +1426,7 @@ Theorem 16.1 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1480,6 +1499,7 @@ Theorem 12.1 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
@@ -1569,6 +1589,7 @@ Theorem 15.1 in
 \begin_inset CommandInset citation
 LatexCommand citep
 key "trefethen_approximation_2013"
+literal "true"
 
 \end_inset
 
