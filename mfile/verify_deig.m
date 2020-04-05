@@ -52,6 +52,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%
 disp('General case, diagC=0:')
 rand('state', 1);
+%A = rand(n) + 1i * rand(n);
+%dA = de * (rand(n) + 1i * rand(n));
 A = rand(n);
 dA = de * rand(n);
 
@@ -71,6 +73,9 @@ dform_vec = U * (F .* (U \ dA * U));
 % renormalize to match MATLAB
 dform_vec = fnormalize(U + dform_vec) - U
 delta_vec = Up - U
+
+err_val = dform_lambda - delta_lambda
+err_vec = norm(dform_vec - delta_vec, 2, 'cols')
 
 %disp('eigenvectors')
 %dform_vec(:,k)

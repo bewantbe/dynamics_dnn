@@ -3,7 +3,7 @@
 % Flip eigenvectors so that they have more large positive elements.
 
 function [evecs, evals] = eigh(A)
-  if nargout == 1
+  if nargout <= 1
     evecs = sort(eig(A), 'descend');
   else
     [evecs, evals] = eig(A);
