@@ -6,8 +6,11 @@
 \origin unavailable
 \textclass article
 \use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
 \maintain_unincluded_children no
-\language chinese-simplified
+\language english
 \language_package default
 \inputencoding utf8
 \fontencoding auto
@@ -32,7 +35,8 @@
 \index_command default
 \float_placement class
 \float_alignment class
-\paperfontsize default
+\paperfontsize 12
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -48,6 +52,7 @@
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -87,8 +92,23 @@
 \begin_body
 
 \begin_layout Standard
-Theorem 1.
- Let 
+\begin_inset FormulaMacro
+\newcommand{\diag}{\,\mathrm{diag}\,}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\col}{\mathrm{col}\,}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+Let 
 \begin_inset Formula $A$
 \end_inset
 
@@ -122,7 +142,7 @@ Theorem 1.
 
  follow independent standard Gaussian distribution,
  and 
-\begin_inset Formula $D=diag(1,a,a^{2},\cdots,a^{n-1})$
+\begin_inset Formula $D=\diag(1,a,a^{2},\cdots,a^{n-1})$
 \end_inset
 
 .
@@ -140,7 +160,7 @@ Theorem 1.
 \end_inset
 
  are 
-\begin_inset Formula $\sigma_{1},\sigma_{2},\cdots\sigma_{m}$
+\begin_inset Formula $\sigma_{1},\sigma_{2},\cdots,\sigma_{m}$
 \end_inset
 
 ,
@@ -155,7 +175,7 @@ Theorem 1.
 
 ,
  
-\begin_inset Formula $V=(v_{ij})_{n×n}$
+\begin_inset Formula $V=\left(v_{ij}\right)_{n×n}$
 \end_inset
 
  can be bounded as
@@ -177,13 +197,106 @@ Theorem 1.
 \end_inset
 
 .
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:vij-bound"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Proof:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Split the theorem into a more general theorem and a corollary.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+duplicated m
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+m<=n ?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+thm1
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $D=\diag(d_{1},d_{2},\cdots,d_{n})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+no restriction to R,
+ with given 
+\begin_inset Formula $M$
+\end_inset
+
+ and 
+\begin_inset Formula $m$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\sigma_{min}(R)=\sigma_{min(n,m)}(R)$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+corollary1
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+with special 
+\begin_inset Formula $D$
+\end_inset
+
+ and 
+\begin_inset Formula $R$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Proof
 Let 
 \begin_inset Formula $M$
 \end_inset
@@ -228,14 +341,14 @@ Let
  .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
 For each matrix 
 \begin_inset Formula $B$
 \end_inset
 
 ,
  we denote 
-\begin_inset Formula $B_{col(k)}$
+\begin_inset Formula $B_{\mathrm{col}(k)}$
 \end_inset
 
  as the 
@@ -250,10 +363,10 @@ th column of
  then we have
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
 \begin_inset Formula 
 \[
-\sigma_{k}=||RDV_{col(k)}||_{2}\geq m||DV_{col(k)}||_{2}\geq ma^{j-1}|v_{jk}|
+\sigma_{k}=\left\Vert RDV_{\col(k)}\right\Vert _{2}\geq m\left\Vert DV_{\col(k)}\right\Vert _{2}\geq ma^{j-1}\left|v_{jk}\right|
 \]
 
 \end_inset
@@ -261,10 +374,10 @@ th column of
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
 \begin_inset Formula 
 \begin{equation}
-|v_{jk}|\leq\frac{\sigma_{k}}{ma^{j-1}}\leq\frac{M}{m}a^{k-j}\label{jk}
+\left|v_{jk}\right|\leq\frac{\sigma_{k}}{ma^{j-1}}\leq\frac{M}{m}a^{k-j}\label{eq: jk}
 \end{equation}
 
 \end_inset
@@ -272,19 +385,19 @@ th column of
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
 Considering 
-\begin_inset Formula $VV_{col(k)}^{T}$
+\begin_inset Formula $VV_{\col(k)}^{T}$
 \end_inset
 
 ,
  we have
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
 \begin_inset Formula 
 \[
-\sigma_{j}|v_{kj}|\leq||USV_{col(k)}^{T}||_{2}=||RDV_{col(k)}^{T}||_{2}\leq M||DVV_{col(k)}^{T}||_{2}\leq Ma^{k-1}
+\sigma_{j}\left|v_{kj}\right|\leq\left\Vert USV^{T}VV_{\col(k)}^{T}\right\Vert _{2}=\left\Vert RDVV_{\col(k)}^{T}\right\Vert _{2}\leq M\left\Vert DVV_{\col(k)}^{T}\right\Vert _{2}\leq Ma^{k-1}
 \]
 
 \end_inset
@@ -292,10 +405,10 @@ Considering
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Proof
 \begin_inset Formula 
 \begin{equation}
-|v_{kj}|\leq\frac{M}{m}a^{k-j}\label{kj}
+\left|v_{kj}\right|\leq\frac{M}{m}a^{k-j}\label{eq: kj}
 \end{equation}
 
 \end_inset
@@ -303,11 +416,22 @@ Considering
 
 \end_layout
 
-\begin_layout Standard
-Theroem 1 can be proved using 
+\begin_layout Proof
+Theroem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:vij-bound"
+plural "false"
+caps "false"
+noprefix "false"
+nolink "false"
+
+\end_inset
+
+ can be proved using 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "jk"
+reference "eq: jk"
 plural "false"
 caps "false"
 noprefix "false"
@@ -318,7 +442,7 @@ nolink "false"
  and 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "kj"
+reference "eq: kj"
 plural "false"
 caps "false"
 noprefix "false"
