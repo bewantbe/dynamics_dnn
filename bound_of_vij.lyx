@@ -154,6 +154,16 @@ Let
 \begin_inset Formula $A=USV^{T}$
 \end_inset
 
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+compact SVD
+\end_layout
+
+\end_inset
+
 .
  Singular values of 
 \begin_inset Formula $A$
@@ -161,6 +171,16 @@ Let
 
  are 
 \begin_inset Formula $\sigma_{1},\sigma_{2},\cdots,\sigma_{m}$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+min sigma>0?
+\end_layout
+
 \end_inset
 
 ,
@@ -237,7 +257,7 @@ duplicated m
 status open
 
 \begin_layout Plain Layout
-m<=n ?
+bound for upper right of V?
 \end_layout
 
 \end_inset
@@ -246,10 +266,13 @@ m<=n ?
 \end_layout
 
 \begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 thm1
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 \begin_inset Formula $D=\diag(d_{1},d_{2},\cdots,d_{n})$
 \end_inset
@@ -257,6 +280,7 @@ thm1
 
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 no restriction to R,
  with given 
@@ -296,6 +320,11 @@ with special
 \end_layout
 
 \end_deeper
+\end_inset
+
+
+\end_layout
+
 \begin_layout Proof
 Let 
 \begin_inset Formula $M$
@@ -316,7 +345,7 @@ Let
 
 .
  With Min-max theorem of SVD,
- we can approximate 
+ we can bound 
 \family roman
 \series medium
 \shape up
@@ -334,7 +363,7 @@ Let
 \begin_inset Formula $\sigma_{k}$
 \end_inset
 
- as 
+ by 
 \begin_inset Formula $\sigma_{k}\in[ma^{k-1},Ma^{k-1}]$
 \end_inset
 
@@ -342,7 +371,7 @@ Let
 \end_layout
 
 \begin_layout Proof
-For each matrix 
+For any matrix 
 \begin_inset Formula $B$
 \end_inset
 
@@ -364,10 +393,35 @@ th column of
 \end_layout
 
 \begin_layout Proof
+For any matrix,
+ we use subscript 
+\begin_inset Formula $\mathrm{col}(k)$
+\end_inset
+
+ to represent its 
+\begin_inset Formula $k$
+\end_inset
+
+th column,
+ then we have
+\end_layout
+
+\begin_layout Proof
 \begin_inset Formula 
 \[
-\sigma_{k}=\left\Vert RDV_{\col(k)}\right\Vert _{2}\geq m\left\Vert DV_{\col(k)}\right\Vert _{2}\geq ma^{j-1}\left|v_{jk}\right|
+A=RD\sim\mathbb{R}^{m\times n}=\mathbb{R}^{m\times n}\cdot\mathbb{R}^{n\times n}
 \]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+A & =USV^{T}=\mathbb{R}^{m\times m}\cdot\mathbb{R}^{m\times n}\cdot\mathbb{R}^{n\times n}\\
+A & =USV^{T}=\mathbb{R}^{m\times m}\cdot\mathbb{R}^{m\times m}\cdot\mathbb{R}^{m\times n}\quad m\leq n\\
+A & =USV^{T}=\mathbb{R}^{m\times n}\cdot\mathbb{R}^{n\times n}\cdot\mathbb{R}^{n\times n}\quad m\geq n\\
+A & =USV^{T}=\mathbb{R}^{m\times r}\cdot\mathbb{R}^{r\times r}\cdot\mathbb{R}^{r\times n}\quad r=\min(m,n)
+\end{align*}
 
 \end_inset
 
@@ -376,9 +430,33 @@ th column of
 
 \begin_layout Proof
 \begin_inset Formula 
+\[
+\sigma_{k}=\left\Vert RDV_{\col(k)}\right\Vert _{2}\geq\sigma_{\min}(R)\left\Vert DV_{\col(k)}\right\Vert _{2}\geq\sigma_{\min}(R)a^{j-1}\left|v_{jk}\right|
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
 \begin{equation}
 \left|v_{jk}\right|\leq\frac{\sigma_{k}}{ma^{j-1}}\leq\frac{M}{m}a^{k-j}\label{eq: jk}
 \end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\forall j=1,\ldots,n
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\forall k=1,\ldots,\min(m,n)
+\]
 
 \end_inset
 
@@ -403,9 +481,63 @@ Considering
 \end_inset
 
 
+\begin_inset Formula 
+\[
+\forall j=1,\ldots,\min(m,n)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\forall k=1,\ldots,\min(m,n)
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Proof
+Considering 
+\begin_inset Formula $e_{k}=\begin{bmatrix}0 & \cdots & 0 & 1 & 0 & \cdots & 0\end{bmatrix}^{T}$
+\end_inset
+
+,
+ while the 
+\begin_inset Formula $k$
+\end_inset
+
+th element is 1,
+ we have
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula 
+\[
+\sigma_{j}\left|v_{kj}\right|\leq\left\Vert S\left(V^{T}\right)_{\col(k)}\right\Vert _{2}=\left\Vert USV^{T}e_{k}\right\Vert _{2}=\left\Vert RDe_{k}\right\Vert _{2}\leq M\left\Vert De_{k}\right\Vert _{2}\leq Ma^{k-1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\forall j=1,\ldots,\min(m,n)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\forall k=1,\ldots,\min(m,n)
+\]
+
+\end_inset
+
+
 \begin_inset Formula 
 \begin{equation}
 \left|v_{kj}\right|\leq\frac{M}{m}a^{k-j}\label{eq: kj}
@@ -450,6 +582,18 @@ nolink "false"
 
 \end_inset
 
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
 .
 \end_layout
 
